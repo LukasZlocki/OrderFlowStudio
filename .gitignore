@@ -1,0 +1,4 @@
+.vscode/
+OrderFlowStudio.Api/obj/
+OrderFlowStudio.Data/obj/
+OrderFlowStudio.Services/obj/
