@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace OrderFlowStudio.Data.Models
 {
@@ -14,5 +15,9 @@ namespace OrderFlowStudio.Data.Models
         [Required]
         [MaxLength(10)]
         public string ProductDescription { get; set; }
+
+        public int OrderId { get; set; }
+        [ForeignKey("OrderId")]
+        public Order Order {get; set;}
     }
 }
