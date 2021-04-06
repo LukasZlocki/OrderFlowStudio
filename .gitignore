@@ -2,3 +2,8 @@
 OrderFlowStudio.Api/obj/
 OrderFlowStudio.Data/obj/
 OrderFlowStudio.Services/obj/
+.vs/
+OrderFlowStudio.Api/bin/
+OrderFlowStudio.Data/Migrations/
+OrderFlowStudio.Data/bin/
+obj/
