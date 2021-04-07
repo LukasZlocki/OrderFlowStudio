@@ -5,15 +5,18 @@ namespace OrderFlowStudio.Services.Product_Service
 {
     public interface IProductService
     {
-         // GET
-         public List<Product> GetAllProducts();
-         public Product GetProductByid(int id);
+        // CREATE
+        public ServiceResponse<Product> AddProduct(Product product);
 
-         // CREATE
-         public ServiceResponse<Product> AddProduct(Product product);
+        // READ
+        public List<Product> GetAllProducts();
+        public Product GetProductByid(int id);
 
-         // DELETE
-         public ServiceResponse<Product> DeleteProduct(Product product);
+        // U PDATE
+        public ServiceResponse<bool> UpdateProduct(Product product);
+
+        // DELETE
+        public ServiceResponse<bool> DeleteProduct(int id);
 
     }
 }

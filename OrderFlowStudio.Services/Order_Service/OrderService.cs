@@ -1,98 +1,103 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using OrderFlowStudio.Data;
 using OrderFlowStudio.Data.Models;
 
-namespace OrderFlowStudio.Services.Product_Service
+namespace OrderFlowStudio.Services.Order_Service
 {
-    public class ProductService : IProductService
-    {
+    public class OrderService : IOrderService
+    {   
         private readonly ILogger _logger;
         private readonly OrderDbContext _db;
 
-        public ProductService(ILogger logger, OrderDbContext db)
+        public OrderService(ILogger logger, OrderDbContext db)
         {
             _logger = logger;
             _db = db;
         }
 
-
         // CREATE
         /// <summary>
-        /// Add product object to data base
+        /// Create order object
         /// </summary>
-        /// <param name="product"></param>
-        /// <returns><ServiceResponse<Product></returns>
-        public ServiceResponse<Product> AddProduct(Product product)
+        /// <param name="order"></param>
+        /// <returns><Order></returns>
+        public ServiceResponse<Order> AddOrder(Order order)
         {
             try
             {
-                _db.Products.Add(product);
+                _db.Orders.Add(order);
                 _db.SaveChanges();
-                return new ServiceResponse<Product>
+                return new ServiceResponse<Order>
                 {
                     IsSucess = true,
-                    Message = "Product added.",
+                    Message = "Order added.",
                     Time = DateTime.UtcNow,
-                    Data = product
+                    Data = order
                 };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                 return new ServiceResponse<Product>
+                return new ServiceResponse<Order>
                 {
                     IsSucess = false,
                     Message = e.StackTrace,
                     Time = DateTime.UtcNow,
-                    Data = product
+                    Data = order
                 };
             }
         }
 
-
+        
         // READ
         /// <summary>
-        /// Read products list from database
+        /// returns orders list
         /// </summary>
-        /// <returns><List<Product></returns>
-        public List<Product> GetAllProducts()
+        /// <returns>List<Order></returns>
+        public List<Order> GetAllOrders()
         {
-            var service = _db.Products.ToList();
+            var service = _db.Orders
+                .Include(or => or.Raport)
+                    .Include(pr => pr.Product)
+                        .ToList();
             return service;
         }
-
 
         // READ
-        public Product GetProductByid(int id)
+        public Order GetOrderById(int id)
         {
-            var service = _db.Products.Find(id);
+            var service = _db.Orders
+                .Include(or => or.Raport)
+                    .Include(pr => pr.Product)
+                        .FirstOrDefault(x => x.Id == id);
             return service;
         }
 
-
+        
         // UPDATE
         /// <summary>
-        /// Update product list by product object
+        /// Update order object
         /// </summary>
-        /// <param name="product"></param>
-        /// <returns><serviceResponse<bool></returns>
-        public ServiceResponse<bool> UpdateProduct(Product product)
+        /// <param name="order"></param>
+        /// <returns><ServiceResponse<bool></returns>
+        public ServiceResponse<bool> UpdateOrder(Order order)
         {
             try
             {
-                _db.Products.Update(product);
+                _db.Orders.Update(order);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
                 {
                     IsSucess = true,
-                    Message = "Product added.",
+                    Message = "Order updated.",
                     Time = DateTime.UtcNow,
                     Data = true
                 };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new ServiceResponse<bool>
                 {
@@ -107,48 +112,49 @@ namespace OrderFlowStudio.Services.Product_Service
 
         // DELETE
         /// <summary>
-        /// Delete product object by primary key
+        /// Delete order object by primary key
         /// </summary>
         /// <param name="id"></param>
         /// <returns><ServiceResponse<bool></returns>
-        public ServiceResponse<bool> DeleteProduct(int id)
+        public ServiceResponse<bool> DeleteOrder(int id)
         {
-            var product = _db.Products.Find(id);
-            if (product == null)
+            var order = _db.Orders.Find(id);
+            if (order == null)
             {
-                 return new ServiceResponse<bool>
+                return new ServiceResponse<bool>
                 {
                     IsSucess = false,
-                    Message = "No product found.",
+                    Message = "No order found",
                     Time = DateTime.UtcNow,
                     Data = false
                 };
             }
-
             try
             {
-                _db.Products.Remove(product);
+                _db.Orders.Remove(order);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
                 {
-                    IsSucess = false,
-                    Message = "Product removed",
+                    IsSucess = true,
+                    Message = "Order removed.",
                     Time = DateTime.UtcNow,
-                    Data = false
+                    Data = true
                 };
-
             }
             catch(Exception e)
             {
                 return new ServiceResponse<bool>
                 {
                     IsSucess = false,
-                    Message = e.StackTrace,
+                    Message = e.StackTrace  ,
                     Time = DateTime.UtcNow,
                     Data = false
                 };
             }
+
         }
+
+
 
        
     }

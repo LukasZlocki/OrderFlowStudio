@@ -5,48 +5,48 @@ using Microsoft.Extensions.Logging;
 using OrderFlowStudio.Data;
 using OrderFlowStudio.Data.Models;
 
-namespace OrderFlowStudio.Services.Product_Service
+namespace OrderFlowStudio.Services.OrderRaport_Service
 {
-    public class ProductService : IProductService
+    public class OrderReportService : IOrderRaportService
     {
         private readonly ILogger _logger;
         private readonly OrderDbContext _db;
 
-        public ProductService(ILogger logger, OrderDbContext db)
+        public OrderReportService(ILogger logger, OrderDbContext db)
         {
             _logger = logger;
             _db = db;
         }
 
-
         // CREATE
         /// <summary>
-        /// Add product object to data base
+        /// Add Order raport object to data base
         /// </summary>
-        /// <param name="product"></param>
-        /// <returns><ServiceResponse<Product></returns>
-        public ServiceResponse<Product> AddProduct(Product product)
+        /// <param name="orderRaport"></param>
+        /// <returns><ServiceResponse<OrderRaport></returns>
+        public ServiceResponse<OrderRaport> AddOrderRaport(OrderRaport orderRaport)
         {
             try
             {
-                _db.Products.Add(product);
+                _db.OrderRaports.Add(orderRaport);
                 _db.SaveChanges();
-                return new ServiceResponse<Product>
+                return new ServiceResponse<OrderRaport>
                 {
                     IsSucess = true,
-                    Message = "Product added.",
+                    Message = "Order raport added.",
                     Time = DateTime.UtcNow,
-                    Data = product
+                    Data = orderRaport
                 };
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
-                 return new ServiceResponse<Product>
+                return new ServiceResponse<OrderRaport>
                 {
                     IsSucess = false,
                     Message = e.StackTrace,
                     Time = DateTime.UtcNow,
-                    Data = product
+                    Data = orderRaport
                 };
             }
         }
@@ -54,45 +54,51 @@ namespace OrderFlowStudio.Services.Product_Service
 
         // READ
         /// <summary>
-        /// Read products list from database
+        /// Read all order raports
         /// </summary>
-        /// <returns><List<Product></returns>
-        public List<Product> GetAllProducts()
+        /// <returns><List<OrderRaport></returns>
+        public List<OrderRaport> GetAllOrderRaports()
         {
-            var service = _db.Products.ToList();
+            var service = _db.OrderRaports.ToList();
             return service;
         }
 
 
         // READ
-        public Product GetProductByid(int id)
+        /// <summary>
+        /// Read order raport by primary key
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns><OrderRaport></returns>
+        public OrderRaport GetOrderRaportById(int id)
         {
-            var service = _db.Products.Find(id);
+            var service = _db.OrderRaports.Find(id);
             return service;
         }
 
 
         // UPDATE
         /// <summary>
-        /// Update product list by product object
+        /// Update order raport object
         /// </summary>
-        /// <param name="product"></param>
-        /// <returns><serviceResponse<bool></returns>
-        public ServiceResponse<bool> UpdateProduct(Product product)
+        /// <param name="orderRaport"></param>
+        /// <returns>ServiceResponse<bool></returns>
+        public ServiceResponse<bool> UpdateOrderRaport(OrderRaport orderRaport)
         {
             try
             {
-                _db.Products.Update(product);
+                _db.OrderRaports.UpdateRange(orderRaport);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
                 {
                     IsSucess = true,
-                    Message = "Product added.",
+                    Message = "Order raport updated.",
                     Time = DateTime.UtcNow,
                     Data = true
                 };
+
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new ServiceResponse<bool>
                 {
@@ -107,19 +113,20 @@ namespace OrderFlowStudio.Services.Product_Service
 
         // DELETE
         /// <summary>
-        /// Delete product object by primary key
+        /// Delete order raport by primary key
         /// </summary>
         /// <param name="id"></param>
         /// <returns><ServiceResponse<bool></returns>
-        public ServiceResponse<bool> DeleteProduct(int id)
+        public ServiceResponse<bool> DeleteOrderRaport(int id)
         {
-            var product = _db.Products.Find(id);
-            if (product == null)
+            var orderRaport = _db.OrderRaports.Find(id);
+
+            if (orderRaport == null)
             {
-                 return new ServiceResponse<bool>
+                return new ServiceResponse<bool>
                 {
                     IsSucess = false,
-                    Message = "No product found.",
+                    Message = "No order raport found.",
                     Time = DateTime.UtcNow,
                     Data = false
                 };
@@ -127,18 +134,17 @@ namespace OrderFlowStudio.Services.Product_Service
 
             try
             {
-                _db.Products.Remove(product);
+                _db.OrderRaports.Remove(orderRaport);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
                 {
-                    IsSucess = false,
-                    Message = "Product removed",
+                    IsSucess = true,
+                    Message = "Order Raport removed.",
                     Time = DateTime.UtcNow,
-                    Data = false
+                    Data = true
                 };
-
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new ServiceResponse<bool>
                 {
@@ -147,9 +153,10 @@ namespace OrderFlowStudio.Services.Product_Service
                     Time = DateTime.UtcNow,
                     Data = false
                 };
+
             }
         }
 
-       
+        
     }
 }
