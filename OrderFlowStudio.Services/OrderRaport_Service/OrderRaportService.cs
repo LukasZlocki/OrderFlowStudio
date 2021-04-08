@@ -7,12 +7,12 @@ using OrderFlowStudio.Data.Models;
 
 namespace OrderFlowStudio.Services.OrderRaport_Service
 {
-    public class OrderReportService : IOrderRaportService
+    public class OrderRaportService : IOrderRaportService
     {
         private readonly ILogger _logger;
         private readonly OrderDbContext _db;
 
-        public OrderReportService(ILogger logger, OrderDbContext db)
+        public OrderRaportService(ILogger logger, OrderDbContext db)
         {
             _logger = logger;
             _db = db;
