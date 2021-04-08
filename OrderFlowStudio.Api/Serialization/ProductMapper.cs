@@ -1,0 +1,19 @@
+using OrderFlowStudio.Api.Dtos;
+using OrderFlowStudio.Data.Models;
+
+namespace OrderFlowStudio.Api.Serialization
+{
+    public static class ProductMapper
+    {
+        public static ProductReadDto SerializeProductToProductReadDto (Product product)
+        {
+            return new ProductReadDto
+            {
+                Id = product.Id,
+                PartNumber = product.PartNumber,
+                ProductDescription = product.ProductDescription,
+            };
+        }
+        
+    }
+}
