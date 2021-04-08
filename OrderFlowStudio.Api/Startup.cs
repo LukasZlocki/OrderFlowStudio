@@ -6,13 +6,16 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using OrderFlowStudio.Data;
 using OrderFlowStudio.Services.Order_Service;
 using OrderFlowStudio.Services.OrderRaport_Service;
+using OrderFlowStudio.Services.Product_Service;
 
 namespace OrderFlowStudio.Api
 {
@@ -35,8 +38,16 @@ namespace OrderFlowStudio.Api
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "OrderFlowStudio.Api", Version = "v1" });
             });
 
+            services.AddControllers()
+            .AddJsonOptions(x => x.JsonSerializerOptions.WriteIndented=true);
+            
+            services.AddDbContext<OrderDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
+
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IOrderRaportService, OrderRaportService>();
+            services.AddTransient<IProductService, ProductService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
