@@ -15,9 +15,5 @@ namespace OrderFlowStudio.Data.Models
         [Required]
         [MaxLength(10)]
         public string ProductDescription { get; set; }
-
-        public int OrderId { get; set; }
-        [ForeignKey("OrderId")]
-        public Order Order {get; set;}
     }
 }
