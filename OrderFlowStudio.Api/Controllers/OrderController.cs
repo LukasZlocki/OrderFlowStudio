@@ -18,9 +18,11 @@ namespace OrderFlowStudio.Api.Controllers
 
         // CREATE
         [HttpPost("api/order")]
-        public ActionResult CreateOrder(OrderRaportReadDto orderRaportDto)
+        public ActionResult CreateOrder([FromBody] OrderCreateDto orderCreateDto)
         {
-            return Ok();
+            var order = OrderMapper.SerializeOrderCreateDtoToOrder(orderCreateDto);
+            var serviceResponse = _orderservice.AddOrder(order);
+            return Ok(serviceResponse);
         }
 
         // READ
@@ -42,6 +44,13 @@ namespace OrderFlowStudio.Api.Controllers
         }
 
         // UPDATE
+        [HttpPatch("/api/order")]
+        public ActionResult UpdateOrder([FromBody] OrderCreateDto orderCreateDto)
+        {
+            var order = OrderMapper.SerializeOrderCreateDtoToOrder(orderCreateDto);
+            var serviceResponse = _orderservice.UpdateOrder(order);
+            return Ok(serviceResponse);
+        }
 
         // DELETE
         // nothink to code here !

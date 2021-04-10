@@ -23,12 +23,23 @@ namespace OrderFlowStudio.Api.Serialization
         {
             return orders.Select(order => new OrderReadDto
             {
-                 Id = order.Id,
+                Id = order.Id,
                 OrderNumber = order.OrderNumber,
                 Quantity = order.Quantity,
                 ProductDto = ProductMapper.SerializeProductToProductReadDto(order.Product),
                 RaportDto = OrderRaportMapper.SerializeOrderRaportToOrderRaportReadDto(order.Raport)
             }).ToList();
+        }
+
+        public static Order SerializeOrderCreateDtoToOrder (OrderCreateDto order)
+        {
+            return new Order 
+            {
+                OrderNumber = order.OrderNumber,
+                Quantity = order.Quantity,
+                Product = ProductMapper.SerializeProductCreateDtoToProduct(order.ProductDto),
+                Raport = OrderRaportMapper.SerializeOrderRaportReadDtoToOrderRaport(order.RaportDto)
+            };
         }
     }
 }

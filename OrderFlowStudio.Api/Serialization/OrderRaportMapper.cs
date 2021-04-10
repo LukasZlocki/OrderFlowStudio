@@ -39,5 +39,21 @@ namespace OrderFlowStudio.Api.Serialization
             };            
         }
 
+        public static OrderRaport SerializeOrderRaportReadDtoToOrderRaport(OrderRaportCreateDto raport)
+        {
+            return new OrderRaport
+            {
+                QuantityFinished = raport.QuantityFinished,
+                isStarted = raport.isStarted,
+                isMasked = raport.isMasked,
+                isProcessed = raport.isProcessed,
+                isProcessOK = raport.isProcessOK,
+                isCorrectionStarted = raport.isCorrectionStarted,
+                isCorrectionFinished = raport.isCorrectionFinished,
+                isOrderFinished = raport.isOrderFinished,
+                // ToDo: How to handle with mapping Id and order object ?
+            };            
+        }
+
     }
 }
