@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using OrderFlowStudio.Api.Dtos;
 using OrderFlowStudio.Data.Models;
 
@@ -15,6 +17,18 @@ namespace OrderFlowStudio.Api.Serialization
                 ProductDto = ProductMapper.SerializeProductToProductReadDto(order.Product),
                 RaportDto = OrderRaportMapper.SerializeOrderRaportToOrderRaportReadDto(order.Raport)
             };
+        }
+
+        public static List<OrderReadDto> SerializeOrderToListOfOrderReadDto(IEnumerable<Order> orders)
+        {
+            return orders.Select(order => new OrderReadDto
+            {
+                 Id = order.Id,
+                OrderNumber = order.OrderNumber,
+                Quantity = order.Quantity,
+                ProductDto = ProductMapper.SerializeProductToProductReadDto(order.Product),
+                RaportDto = OrderRaportMapper.SerializeOrderRaportToOrderRaportReadDto(order.Raport)
+            }).ToList();
         }
     }
 }

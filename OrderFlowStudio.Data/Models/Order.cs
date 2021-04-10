@@ -16,6 +16,7 @@ namespace OrderFlowStudio.Data.Models
         public int Quantity { get; set; }
 
         public Product Product { get; set; }
+        
         public OrderRaport Raport {get; set;}
     }
 }

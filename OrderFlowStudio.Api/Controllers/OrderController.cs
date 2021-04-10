@@ -6,10 +6,15 @@ using OrderFlowStudio.Services.Order_Service;
 
 namespace OrderFlowStudio.Api.Controllers
 {
+    [ApiController]
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderservice;
-        private readonly ILogger _logger;
+
+        public OrderController(IOrderService orderService)
+        {
+            _orderservice = orderService;
+        }
 
         // CREATE
         [HttpPost("api/order")]
@@ -24,6 +29,15 @@ namespace OrderFlowStudio.Api.Controllers
         {
             var order = _orderservice.GetOrderById(id);
             var orderDto = OrderMapper.SerializeOrderToOrderReadDto(order);
+            return Ok(orderDto);
+        }
+
+                // READ
+        [HttpGet("api/order")]
+        public ActionResult GetOrders(int id)
+        {
+            var orders = _orderservice.GetAllOrders();
+            var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
             return Ok(orderDto);
         }
 

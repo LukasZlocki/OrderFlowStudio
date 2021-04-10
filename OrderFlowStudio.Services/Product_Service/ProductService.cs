@@ -9,12 +9,10 @@ namespace OrderFlowStudio.Services.Product_Service
 {
     public class ProductService : IProductService
     {
-        private readonly ILogger _logger;
         private readonly OrderDbContext _db;
 
-        public ProductService(ILogger logger, OrderDbContext db)
+        public ProductService(OrderDbContext db)
         {
-            _logger = logger;
             _db = db;
         }
 
