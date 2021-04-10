@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using OrderFlowStudio.Api.Dtos;
 using OrderFlowStudio.Data.Models;
 
@@ -22,6 +24,16 @@ namespace OrderFlowStudio.Api.Serialization
                 PartNumber = product.PartNumber,
                 ProductDescription = product.ProductDescription
             };
+        }
+
+        public static List<ProductReadDto> SerializeProductListToProductReadDtoList(IEnumerable<Product> products)
+        {
+            return products.Select(product => new ProductReadDto
+            {
+                Id = product.Id, 
+                PartNumber = product.PartNumber,
+                ProductDescription = product.ProductDescription
+            }).ToList();
         }
         
     }
