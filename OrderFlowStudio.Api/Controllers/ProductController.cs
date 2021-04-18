@@ -43,7 +43,14 @@ namespace OrderFlowStudio.Api.Controllers
         }
 
         // UPDATE
-        // No need to code this functionality here !
+        [HttpPatch("api/product")]
+        public ActionResult UpdateProduct ([FromBody] ProductReadDto productReadDto)
+        {
+            var product = ProductMapper.SerializeProductReadDtoToProduct(productReadDto);
+            var serviceResponse = _productService.UpdateProduct(product);
+            return Ok(serviceResponse);
+
+        }
 
         // DELETE
         // No need to code this functionality here !

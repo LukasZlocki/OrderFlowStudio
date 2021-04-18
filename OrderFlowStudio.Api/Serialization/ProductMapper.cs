@@ -17,6 +17,16 @@ namespace OrderFlowStudio.Api.Serialization
             };
         }
 
+        public static Product SerializeProductReadDtoToProduct(ProductReadDto productDto)
+        {
+            return new Product
+            {
+                Id = productDto.Id,
+                PartNumber = productDto.PartNumber,
+                ProductDescription = productDto.ProductDescription
+            };
+        }
+
         public static Product SerializeProductCreateDtoToProduct(ProductCreateDto product)
         {
             return new Product
