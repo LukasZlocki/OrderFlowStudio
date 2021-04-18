@@ -13,7 +13,7 @@ namespace OrderFlowStudio.Services.Order_Service
         public Order GetOrderById(int id);
 
         // UPDATE
-        public ServiceResponse<bool> UpdateOrder(Order order);
+        //public ServiceResponse<bool> UpdateOrderStatuses(Order order);
 
         // DELETE
         public ServiceResponse<bool> DeleteOrder(int id);

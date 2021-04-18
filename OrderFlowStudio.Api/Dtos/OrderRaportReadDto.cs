@@ -11,5 +11,7 @@ namespace OrderFlowStudio.Api.Dtos
         public bool isCorrectionStarted { get; set; } // Q inspection NOK - start correction
         public bool isCorrectionFinished { get; set; } // Q inspection NOK - finish correction
         public bool isOrderFinished { get; set; } // order finished and sent to packing area
+
+        public OrderReadDto OrderDto { get; set; }
     }
 }

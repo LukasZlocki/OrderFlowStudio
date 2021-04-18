@@ -19,6 +19,17 @@ namespace OrderFlowStudio.Api.Serialization
             };
         }
 
+        public static Order SerializeOrderReadDtoToOrder (OrderReadDto order)
+        {
+            return new Order 
+            {
+                OrderNumber = order.OrderNumber,
+                Quantity = order.Quantity,
+                Product = ProductMapper.SerializeProductReadDtoToProduct(order.ProductDto),
+                Raport = OrderRaportMapper.SerializeOrderRaportReadDtoToOrderRaport(order.RaportDto)
+            };
+        }
+
         public static List<OrderReadDto> SerializeOrderToListOfOrderReadDto(IEnumerable<Order> orders)
         {
             return orders.Select(order => new OrderReadDto

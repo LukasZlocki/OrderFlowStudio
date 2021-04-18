@@ -81,11 +81,21 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
         /// </summary>
         /// <param name="orderRaport"></param>
         /// <returns>ServiceResponse<bool></returns>
-        public ServiceResponse<bool> UpdateOrderRaport(OrderRaport orderRaport)
+        public ServiceResponse<bool> UpdateOrderRaportStatuses(OrderRaport orderRaport)
         {
             try
             {
-                _db.OrderRaports.UpdateRange(orderRaport);
+                var orderRaportToUpdate = _db.OrderRaports.Find(orderRaport.Id);
+                        orderRaportToUpdate.QuantityFinished = orderRaport.QuantityFinished;
+                        orderRaportToUpdate.isStarted = orderRaport.isStarted;
+                        orderRaportToUpdate.isMasked = orderRaport.isMasked;
+                        orderRaportToUpdate.isProcessed = orderRaport.isProcessed;
+                        orderRaportToUpdate.isProcessOK = orderRaport.isProcessOK;
+                        orderRaportToUpdate.isCorrectionStarted = orderRaport.isCorrectionStarted;
+                        orderRaportToUpdate.isCorrectionFinished = orderRaport.isCorrectionFinished;
+                        orderRaportToUpdate.isOrderFinished = orderRaport.isOrderFinished;
+
+                _db.OrderRaports.Update(orderRaportToUpdate);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
                 {

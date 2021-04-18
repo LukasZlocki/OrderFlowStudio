@@ -75,6 +75,8 @@ namespace OrderFlowStudio.Services.Order_Service
         }
 
         
+
+        /* NO NEED TO UPDATE ORDER , BUT IN FUTURE UPDATES ONLY ON SPECIFIC NEED AND DO IT BY Id 
         // UPDATE
         /// <summary>
         /// Update order object
@@ -106,7 +108,7 @@ namespace OrderFlowStudio.Services.Order_Service
                 };
             }
         }
-
+        */
 
         // DELETE
         /// <summary>

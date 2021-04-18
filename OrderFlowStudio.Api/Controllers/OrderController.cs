@@ -43,6 +43,7 @@ namespace OrderFlowStudio.Api.Controllers
             return Ok(orderDto);
         }
 
+        /* NO NEED TO UPDATE ORDER , BUT IN FUTURE UPDATES ONLY ON SPECIFIC NEED AND DO IT BY Id 
         // UPDATE
         [HttpPatch("/api/order")]
         public ActionResult UpdateOrder([FromBody] OrderCreateDto orderCreateDto)
@@ -51,6 +52,7 @@ namespace OrderFlowStudio.Api.Controllers
             var serviceResponse = _orderservice.UpdateOrder(order);
             return Ok(serviceResponse);
         }
+        */
 
         // DELETE
         // nothink to code here !

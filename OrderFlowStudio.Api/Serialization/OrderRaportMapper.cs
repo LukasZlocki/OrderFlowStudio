@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using OrderFlowStudio.Api.Dtos;
 using OrderFlowStudio.Data.Models;
 
@@ -20,7 +22,21 @@ namespace OrderFlowStudio.Api.Serialization
                 isOrderFinished = raport.isOrderFinished,
             };            
         }
-
+        public static OrderRaport SerializeStatusesOnlyOfOrderRaportReadDtoToOrderRaport( OrderRaportReadDto raport)
+        {
+            return new OrderRaport
+            {
+                Id = raport.Id,
+                QuantityFinished = raport.QuantityFinished,
+                isStarted = raport.isStarted,
+                isMasked = raport.isMasked,
+                isProcessed = raport.isProcessed,
+                isProcessOK = raport.isProcessOK,
+                isCorrectionStarted = raport.isCorrectionStarted,
+                isCorrectionFinished = raport.isCorrectionFinished,
+                isOrderFinished = raport.isOrderFinished,
+            };            
+        }
 
         public static OrderRaport SerializeOrderRaportReadDtoToOrderRaport(OrderRaportReadDto raport)
         {
@@ -36,6 +52,7 @@ namespace OrderFlowStudio.Api.Serialization
                 isCorrectionFinished = raport.isCorrectionFinished,
                 isOrderFinished = raport.isOrderFinished,
                 // ToDo: How to handle with mapping Id and order object ?
+                Order = OrderMapper.SerializeOrderReadDtoToOrder(raport.OrderDto)
             };            
         }
 
@@ -53,6 +70,23 @@ namespace OrderFlowStudio.Api.Serialization
                 isOrderFinished = raport.isOrderFinished,
                 // ToDo: How to handle with mapping Id and order object ?
             };            
+        }
+
+        public static List<OrderRaportReadDto> SerializeListOfOrderRaportsToOrderRaportReadDtoList(IEnumerable<OrderRaport> orderRaports)
+        {
+            return orderRaports.Select(raport => new OrderRaportReadDto 
+            {   
+                Id = raport.Id,
+                QuantityFinished = raport.QuantityFinished,
+                isStarted = raport.isStarted,
+                isMasked = raport.isMasked,
+                isProcessed = raport.isProcessed,
+                isProcessOK = raport.isProcessOK,
+                isCorrectionStarted = raport.isCorrectionStarted,
+                isCorrectionFinished = raport.isCorrectionFinished,
+                isOrderFinished = raport.isOrderFinished
+                // ToDo: How to handle with mapping Id and order object ?
+            }).ToList();       
         }
 
     }

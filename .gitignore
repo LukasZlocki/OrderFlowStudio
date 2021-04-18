@@ -7,3 +7,5 @@ OrderFlowStudio.Api/bin/
 OrderFlowStudio.Data/Migrations/
 OrderFlowStudio.Data/bin/
 obj/
+
+OrderFlowStudio.Services/bin/Debug/
