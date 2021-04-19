@@ -33,6 +33,7 @@ namespace OrderFlowStudio.Api.Serialization
             {
                 PartNumber = product.PartNumber,
                 ProductDescription = product.ProductDescription
+                
             };
         }
 
