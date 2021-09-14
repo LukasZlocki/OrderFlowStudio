@@ -75,7 +75,20 @@ namespace OrderFlowStudio.Services.Order_Service
             return service;
         }
 
-        
+        public Order GetOrderByOrderNb(int orderNb)
+        {
+             var service = _db.Orders.FirstOrDefault(nb => nb.OrderNumber == orderNb);
+            return service;
+        }
+
+        public int GetOrderIdByOrderNb(int orderNb)
+        {
+            var service =_db.Orders.FirstOrDefault(nb => nb.OrderNumber == orderNb);
+            int id = service.Id;
+            return id;
+        }
+
+
 
         /* NO NEED TO UPDATE ORDER , BUT IN FUTURE UPDATES ONLY ON SPECIFIC NEED AND DO IT BY Id 
         // UPDATE

@@ -11,6 +11,7 @@ namespace OrderFlowStudio.Services.Order_Service
         // READ
         public List<Order> GetAllOrders();
         public Order GetOrderById(int id);
+        public int GetOrderIdByOrderNb(int orderNb);
 
         // UPDATE
         //public ServiceResponse<bool> UpdateOrderStatuses(Order order);
