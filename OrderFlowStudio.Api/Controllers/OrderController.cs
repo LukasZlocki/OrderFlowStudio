@@ -35,13 +35,21 @@ namespace OrderFlowStudio.Api.Controllers
             return Ok(orderDto);
         }
 
-                // READ
+        // READ
         [HttpGet("api/order")]
         public ActionResult GetOrders(int id)
         {
             var orders = _orderservice.GetAllOrders();
             var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
             return Ok(orderDto);
+        }
+
+        // READ
+        [HttpGet("api/order/bynumber")]
+        public ActionResult GetOrderIdByOrderNb(int orderNb)
+        {
+            int orderId = _orderservice.GetOrderIdByOrderNb(orderNb);
+            return Ok(orderId);
         }
 
         /* NO NEED TO UPDATE ORDER , BUT IN FUTURE UPDATES ONLY ON SPECIFIC NEED AND DO IT BY Id 
