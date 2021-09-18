@@ -45,15 +45,15 @@ namespace OrderFlowStudio.Api.Controllers
         }
 
         // READ
-        [HttpGet("api/order/bynumber")]
-        public ActionResult GetOrderIdByOrderNb(int orderNb)
+        [HttpGet("api/order/byordernumber/{id}")]
+        public ActionResult GetOrderRaportIdByOrderNb(int id)
         {
-            int orderId = _orderservice.GetOrderIdByOrderNb(orderNb);
-            return Ok(orderId);
+            var orderRaportId = _orderservice.GetOrderRaportIdByOrderNb(id);
+            return Ok(orderRaportId);
         }
 
         /* NO NEED TO UPDATE ORDER , BUT IN FUTURE UPDATES ONLY ON SPECIFIC NEED AND DO IT BY Id 
-        // UPDATE
+        // UPDATE 
         [HttpPatch("/api/order")]
         public ActionResult UpdateOrder([FromBody] OrderCreateDto orderCreateDto)
         {

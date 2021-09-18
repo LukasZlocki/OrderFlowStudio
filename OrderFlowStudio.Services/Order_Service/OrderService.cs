@@ -75,17 +75,22 @@ namespace OrderFlowStudio.Services.Order_Service
             return service;
         }
 
-        public Order GetOrderByOrderNb(int orderNb)
+        // READ
+        public Order GetOrderByOrderNb(int id)
         {
-             var service = _db.Orders.FirstOrDefault(nb => nb.OrderNumber == orderNb);
+             var service = _db.Orders.FirstOrDefault(nb => nb.OrderNumber == id);
             return service;
         }
 
-        public int GetOrderIdByOrderNb(int orderNb)
+        // READ
+        public int GetOrderRaportIdByOrderNb(int id)
         {
-            var service =_db.Orders.FirstOrDefault(nb => nb.OrderNumber == orderNb);
-            int id = service.Id;
-            return id;
+            var service =_db.Orders
+                .Include(or => or.Raport)
+                    .FirstOrDefault(nb => nb.OrderNumber == id);
+            Order order = service;
+            int orderId = order.Raport.Id;
+            return orderId;
         }
 
 
