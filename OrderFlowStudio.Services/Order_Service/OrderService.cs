@@ -93,6 +93,20 @@ namespace OrderFlowStudio.Services.Order_Service
             return orderId;
         }
 
+        // READ
+        /// <summary>
+        /// Returns orders list with order not started in system
+        /// </summary>
+        /// <returns>List<Order></returns>
+        public List<Order> GetOrdersFilteredForMaskingArea()
+        {
+            var service = _db.Orders
+                .Include(or => or.Raport).Where(r => r.Raport.isMasked == false)
+                    .Include(p => p.Product)
+                        .ToList();
+            return service;
+        }
+
 
 
         /* NO NEED TO UPDATE ORDER , BUT IN FUTURE UPDATES ONLY ON SPECIFIC NEED AND DO IT BY Id 
@@ -174,7 +188,5 @@ namespace OrderFlowStudio.Services.Order_Service
         }
 
 
-
-       
     }
 }

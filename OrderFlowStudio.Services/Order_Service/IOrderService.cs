@@ -12,6 +12,7 @@ namespace OrderFlowStudio.Services.Order_Service
         public List<Order> GetAllOrders();
         public Order GetOrderById(int id);
         public int GetOrderRaportIdByOrderNb(int id);
+        public List<Order> GetOrdersFilteredForMaskingArea();
 
         // UPDATE
         //public ServiceResponse<bool> UpdateOrderStatuses(Order order);

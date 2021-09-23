@@ -52,6 +52,14 @@ namespace OrderFlowStudio.Api.Controllers
             return Ok(orderRaportId);
         }
 
+        // READ
+        [HttpGet("api/order/maskingmodule")]
+        public ActionResult GetOrdersNotStartedInSystem()
+        {
+            var orders = _orderservice.GetOrdersFilteredForMaskingArea();
+            return Ok(orders);
+        }
+
         /* NO NEED TO UPDATE ORDER , BUT IN FUTURE UPDATES ONLY ON SPECIFIC NEED AND DO IT BY Id 
         // UPDATE 
         [HttpPatch("/api/order")]

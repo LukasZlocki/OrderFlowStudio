@@ -35,6 +35,10 @@ namespace OrderFlowStudio.Api
              services.AddControllers()
             .AddJsonOptions(x => x.JsonSerializerOptions.WriteIndented=true);
             
+            services.AddControllers().AddNewtonsoftJson(x => 
+            x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
+
             services.AddDbContext<OrderDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
