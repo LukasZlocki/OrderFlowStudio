@@ -57,7 +57,8 @@ namespace OrderFlowStudio.Api.Controllers
         public ActionResult GetOrdersNotStartedInSystem()
         {
             var orders = _orderservice.GetOrdersFilteredForMaskingArea();
-            return Ok(orders);
+            var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
+            return Ok(orderDto);
         }
 
         /* NO NEED TO UPDATE ORDER , BUT IN FUTURE UPDATES ONLY ON SPECIFIC NEED AND DO IT BY Id 
