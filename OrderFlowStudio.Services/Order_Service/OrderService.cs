@@ -101,7 +101,7 @@ namespace OrderFlowStudio.Services.Order_Service
         public List<Order> GetOrdersFilteredForMaskingArea()
         {
             var service = _db.Orders
-                .Include(or => or.Raport).Where(r => r.Raport.isMasked == false)
+                .Include(or => or.Raport).Where(r => r.Raport.Status.StatusCode == 20)
                     .Include(p => p.Product)
                         .ToList();
             return service;

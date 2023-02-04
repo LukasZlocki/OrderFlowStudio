@@ -86,15 +86,7 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
             try
             {
                 var orderRaportToUpdate = _db.OrderRaports.Find(orderRaport.Id);
-                        orderRaportToUpdate.QuantityFinished = orderRaport.QuantityFinished;
-                        orderRaportToUpdate.isStarted = orderRaport.isStarted;
-                        orderRaportToUpdate.isMasked = orderRaport.isMasked;
-                        orderRaportToUpdate.isProcessed = orderRaport.isProcessed;
-                        orderRaportToUpdate.isProcessOK = orderRaport.isProcessOK;
-                        orderRaportToUpdate.isCorrectionStarted = orderRaport.isCorrectionStarted;
-                        orderRaportToUpdate.isCorrectionFinished = orderRaport.isCorrectionFinished;
-                        orderRaportToUpdate.isOrderFinished = orderRaport.isOrderFinished;
-
+                orderRaportToUpdate = orderRaport;
                 _db.OrderRaports.Update(orderRaportToUpdate);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
