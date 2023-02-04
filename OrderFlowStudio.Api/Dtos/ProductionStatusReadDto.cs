@@ -1,6 +1,6 @@
 namespace OrderFlowStudio.Api.Dtos
 {
-    public class ProductionStatusDto
+    public class ProductionStatusReadDto
     {
         public int StatusCode { get; set; }
     }
