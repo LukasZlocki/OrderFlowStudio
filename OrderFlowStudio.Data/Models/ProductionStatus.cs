@@ -13,6 +13,7 @@ namespace OrderFlowStudio.Data.Models
 /*
 Status Code:
 10 - Not in area
+15 - Not started
 20 - Masking
 30 - Processing
 40 - Correction 
