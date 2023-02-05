@@ -4,7 +4,7 @@ namespace OrderFlowStudio.Api.Dtos
     {
         public int Id { get; set; }
         public int QuantityFinished { get; set; }
-        public ProductionStatusReadDto Status { get; set; }     
+        public ProductionStatusReadDto StatusDto { get; set; }     
         public OrderReadDto OrderDto { get; set; }
     }
 }
