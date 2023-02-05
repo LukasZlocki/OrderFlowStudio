@@ -42,7 +42,7 @@ namespace OrderFlowStudio.Api.Serialization
             }).ToList();
         }
 
-/*
+
         public static Order SerializeOrderCreateDtoToOrder (OrderCreateDto order)
         {
             return new Order 
@@ -53,7 +53,7 @@ namespace OrderFlowStudio.Api.Serialization
                 Raport = OrderRaportMapper.SerializeOrderRaportCreateDtoToOrderRaport(order.RaportDto)
             };
         }
-*/
+
 
     }
 }
