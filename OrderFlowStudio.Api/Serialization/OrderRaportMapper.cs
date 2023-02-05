@@ -39,16 +39,16 @@ namespace OrderFlowStudio.Api.Serialization
             };            
         }
 
-/*
         public static OrderRaport SerializeOrderRaportCreateDtoToOrderRaport(OrderRaportCreateDto raportDto)
         {
             return new OrderRaport
             {
                 QuantityFinished = raportDto.QuantityFinished,
-                Status = ProductionStatusMapper.SerializeProductionStatusDtoToProductionStatus(raportDto)
+                Status = ProductionStatusMapper.SerializeProductionStatusDtoToProductionStatus(raportDto.Status)
             };
         }
 
+/*
         public static OrderRaport SerializeOrderRaportReadDtoToOrderRaport(OrderRaportCreateDto raport)
         {
             return new OrderRaport
