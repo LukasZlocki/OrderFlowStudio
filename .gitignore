@@ -2,6 +2,7 @@
 OrderFlowStudio.Api/obj/
 OrderFlowStudio.Data/obj/
 OrderFlowStudio.Services/obj/
+OrderFlowStudio.Services/bin/
 .vs/
 OrderFlowStudio.Api/bin/
 OrderFlowStudio.Data/Migrations/
