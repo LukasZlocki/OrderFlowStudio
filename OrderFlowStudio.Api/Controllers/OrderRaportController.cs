@@ -15,6 +15,7 @@ namespace OrderFlowStudio.Api.Controllers
             _orderRaportService = orderRaportService;
         }
 
+        /*
         // CREATE
         [HttpPost("api/raport")]
         public ActionResult CreateRaport([FromBody] OrderRaportCreateDto raportReadDto)
@@ -23,6 +24,7 @@ namespace OrderFlowStudio.Api.Controllers
             var serviceResponse = _orderRaportService.AddOrderRaport(orderRaport);
             return Ok(serviceResponse);
         }
+        */
 
         // READ
         [HttpGet("api/raport/{id}")]
