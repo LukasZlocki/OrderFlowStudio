@@ -3,6 +3,7 @@ namespace OrderFlowStudio.Api.Dtos
     public class ProductionStatusReadDto
     {
         public int StatusCode { get; set; }
+        public string StatusDescription { get; set; }
     }
 }
 
