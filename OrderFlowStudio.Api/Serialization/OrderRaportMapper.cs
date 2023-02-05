@@ -13,6 +13,7 @@ namespace OrderFlowStudio.Api.Serialization
             {
                 Id = raport.Id,
                 QuantityFinished = raport.QuantityFinished,
+                Status = 
                 isStarted = raport.isStarted,
                 isMasked = raport.isMasked,
                 isProcessed = raport.isProcessed,
