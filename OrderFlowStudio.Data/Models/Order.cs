@@ -18,9 +18,5 @@ namespace OrderFlowStudio.Data.Models
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
         public Product Product { get; set; }
-        
-        public int RaportId { get; set; }
-        [ForeignKey("RaportId")]
-        public OrderRaport Raport {get; set;}
     }
 }
