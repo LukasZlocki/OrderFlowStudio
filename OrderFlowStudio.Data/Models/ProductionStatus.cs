@@ -4,6 +4,7 @@ namespace OrderFlowStudio.Data.Models
 {
     public class ProductionStatus
     {
+        [Key]
         public int StatusId { get; set; }
         public int StatusCode { get; set; }
         public string StatusDescription { get; set; }
