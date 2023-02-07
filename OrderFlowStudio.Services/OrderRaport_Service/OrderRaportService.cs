@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using OrderFlowStudio.Data;
 using OrderFlowStudio.Data.Models;
@@ -70,7 +71,11 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
         /// <returns><OrderRaport></returns>
         public OrderRaport GetOrderRaportById(int id)
         {
-            var service = _db.OrderRaports.Find(id);
+            //var service = _db.OrderRaports.Find(id);
+            var service = _db.OrderRaports
+                .Include(or => or.Order)
+                    .Include(st => st.Status)
+                        .FirstOrDefault(x => x.Id == id);
             return service;
         }
 
