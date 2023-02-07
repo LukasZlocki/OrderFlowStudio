@@ -73,9 +73,8 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
         {
             //var service = _db.OrderRaports.Find(id);
             var service = _db.OrderRaports
-                .Include(or => or.Order)
-                    .Include(st => st.Status)
-                        .FirstOrDefault(x => x.Id == id);
+                .Include(st => st.Status)
+                    .FirstOrDefault(x => x.Id == id);
             return service;
         }
 

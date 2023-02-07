@@ -70,8 +70,9 @@ namespace OrderFlowStudio.Services.Order_Service
         {
             var service = _db.Orders
                 .Include(or => or.Raport)
-                    .Include(pr => pr.Product)
-                        .FirstOrDefault(x => x.Id == id);
+                    .ThenInclude(st => st.Status)
+                        .Include(pr => pr.Product)
+                            .FirstOrDefault(x => x.Id == id);
             return service;
         }
 

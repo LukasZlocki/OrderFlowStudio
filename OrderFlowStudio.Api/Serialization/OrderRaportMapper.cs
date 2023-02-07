@@ -14,7 +14,6 @@ namespace OrderFlowStudio.Api.Serialization
                 Id = raport.Id,
                 QuantityFinished = raport.QuantityFinished,
                 StatusDto = ProductionStatusMapper.SerializeProductionStatusToProductionStatusReadDto(raport.Status),
-                OrderDto = OrderMapper.SerializeOrderToOrderReadDto(raport.Order)
             };            
         }
         public static OrderRaport SerializeStatusesOnlyOfOrderRaportReadDtoToOrderRaport( OrderRaportReadDto raportDto)
@@ -34,7 +33,7 @@ namespace OrderFlowStudio.Api.Serialization
             {
                 Id = raportDto.Id,
                 QuantityFinished = raportDto.QuantityFinished,
-                Order = OrderMapper.SerializeOrderReadDtoToOrder(raportDto.OrderDto),
+                //Order = OrderMapper.SerializeOrderReadDtoToOrder(raportDto.OrderDto),
                 Status = ProductionStatusMapper.SerializeProductionStatusDtoToProductionStatus(raportDto.StatusDto)
             };            
         }
