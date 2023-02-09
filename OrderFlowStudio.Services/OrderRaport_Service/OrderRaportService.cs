@@ -58,7 +58,9 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
         /// <returns><List<OrderRaport></returns>
         public List<OrderRaport> GetAllOrderRaports()
         {
-            var service = _db.OrderRaports.ToList();
+            var service = _db.OrderRaports
+                                .Include(st => st.Status)
+                                    .ToList();
             return service;
         }
 
