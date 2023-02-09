@@ -43,7 +43,7 @@ namespace OrderFlowStudio.Api.Controllers
             var raportsReadDto = OrderRaportMapper.SerializeListOfOrderRaportsToOrderRaportReadDtoList(raports);
             return Ok(raportsReadDto);
         }
-
+        
         // UPDATE
         [HttpPatch("api/raport")]
         public ActionResult UpdateRaportStatuses([FromBody] OrderRaportReadDto raportReadDto)
