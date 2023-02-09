@@ -60,8 +60,9 @@ namespace OrderFlowStudio.Services.Order_Service
         {
             var service = _db.Orders
                 .Include(or => or.Raport)
-                    .Include(pr => pr.Product)
-                        .ToList();
+                    .ThenInclude(st => st.Status)
+                        .Include(pr => pr.Product)
+                            .ToList();
             return service;
         }
 
