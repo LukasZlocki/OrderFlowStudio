@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using OrderFlowStudio.Data;
 using OrderFlowStudio.Data.Models;
@@ -57,7 +58,9 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
         /// <returns><List<OrderRaport></returns>
         public List<OrderRaport> GetAllOrderRaports()
         {
-            var service = _db.OrderRaports.ToList();
+            var service = _db.OrderRaports
+                                .Include(st => st.Status)
+                                    .ToList();
             return service;
         }
 
@@ -70,7 +73,10 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
         /// <returns><OrderRaport></returns>
         public OrderRaport GetOrderRaportById(int id)
         {
-            var service = _db.OrderRaports.Find(id);
+            //var service = _db.OrderRaports.Find(id);
+            var service = _db.OrderRaports
+                .Include(st => st.Status)
+                    .FirstOrDefault(x => x.Id == id);
             return service;
         }
 
@@ -86,15 +92,7 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
             try
             {
                 var orderRaportToUpdate = _db.OrderRaports.Find(orderRaport.Id);
-                        orderRaportToUpdate.QuantityFinished = orderRaport.QuantityFinished;
-                        orderRaportToUpdate.isStarted = orderRaport.isStarted;
-                        orderRaportToUpdate.isMasked = orderRaport.isMasked;
-                        orderRaportToUpdate.isProcessed = orderRaport.isProcessed;
-                        orderRaportToUpdate.isProcessOK = orderRaport.isProcessOK;
-                        orderRaportToUpdate.isCorrectionStarted = orderRaport.isCorrectionStarted;
-                        orderRaportToUpdate.isCorrectionFinished = orderRaport.isCorrectionFinished;
-                        orderRaportToUpdate.isOrderFinished = orderRaport.isOrderFinished;
-
+                orderRaportToUpdate = orderRaport;
                 _db.OrderRaports.Update(orderRaportToUpdate);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>

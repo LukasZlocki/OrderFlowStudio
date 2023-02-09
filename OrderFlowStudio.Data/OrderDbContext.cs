@@ -13,6 +13,7 @@ namespace OrderFlowStudio.Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderRaport> OrderRaports { get; set; }
         public DbSet<Product> Products { get; set; }
+        public DbSet<ProductionStatus> Statuses {get; set;}
         
     }
 }

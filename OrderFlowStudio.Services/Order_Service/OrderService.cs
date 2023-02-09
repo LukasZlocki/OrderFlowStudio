@@ -60,8 +60,9 @@ namespace OrderFlowStudio.Services.Order_Service
         {
             var service = _db.Orders
                 .Include(or => or.Raport)
-                    .Include(pr => pr.Product)
-                        .ToList();
+                    .ThenInclude(st => st.Status)
+                        .Include(pr => pr.Product)
+                            .ToList();
             return service;
         }
 
@@ -70,8 +71,9 @@ namespace OrderFlowStudio.Services.Order_Service
         {
             var service = _db.Orders
                 .Include(or => or.Raport)
-                    .Include(pr => pr.Product)
-                        .FirstOrDefault(x => x.Id == id);
+                    .ThenInclude(st => st.Status)
+                        .Include(pr => pr.Product)
+                            .FirstOrDefault(x => x.Id == id);
             return service;
         }
 
@@ -101,7 +103,7 @@ namespace OrderFlowStudio.Services.Order_Service
         public List<Order> GetOrdersFilteredForMaskingArea()
         {
             var service = _db.Orders
-                .Include(or => or.Raport).Where(r => r.Raport.isMasked == false)
+                .Include(or => or.Raport).Where(r => r.Raport.Status.StatusCode == 20)
                     .Include(p => p.Product)
                         .ToList();
             return service;

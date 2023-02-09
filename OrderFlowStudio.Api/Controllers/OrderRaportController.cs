@@ -15,6 +15,7 @@ namespace OrderFlowStudio.Api.Controllers
             _orderRaportService = orderRaportService;
         }
 
+        /*
         // CREATE
         [HttpPost("api/raport")]
         public ActionResult CreateRaport([FromBody] OrderRaportCreateDto raportReadDto)
@@ -23,6 +24,7 @@ namespace OrderFlowStudio.Api.Controllers
             var serviceResponse = _orderRaportService.AddOrderRaport(orderRaport);
             return Ok(serviceResponse);
         }
+        */
 
         // READ
         [HttpGet("api/raport/{id}")]
@@ -41,7 +43,7 @@ namespace OrderFlowStudio.Api.Controllers
             var raportsReadDto = OrderRaportMapper.SerializeListOfOrderRaportsToOrderRaportReadDtoList(raports);
             return Ok(raportsReadDto);
         }
-
+        
         // UPDATE
         [HttpPatch("api/raport")]
         public ActionResult UpdateRaportStatuses([FromBody] OrderRaportReadDto raportReadDto)
