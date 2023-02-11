@@ -78,6 +78,19 @@ namespace OrderFlowStudio.Services.Order_Service
         }
 
         // READ
+        /// <summary>
+        /// returns order id by order number
+        /// </summary>
+        /// <param name="orderNb"></param>
+        /// <returns>int order id</returns>
+        public int GetOrderIdByOrderNb(int orderNb)
+        {
+            var service = _db.Orders.FirstOrDefault(nb => nb.OrderNumber == orderNb);
+            return service.Id;
+        }
+
+
+        // READ
         public Order GetOrderByOrderNb(int id)
         {
              var service = _db.Orders.FirstOrDefault(nb => nb.OrderNumber == id);
