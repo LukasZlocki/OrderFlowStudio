@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using OrderFlowStudio.Api.Dtos;
 using OrderFlowStudio.Api.Serialization;
 using OrderFlowStudio.Services.Order_Service;
+using static System.Convert;
 
 namespace OrderFlowStudio.Api.Controllers
 {
@@ -42,6 +43,15 @@ namespace OrderFlowStudio.Api.Controllers
             var orders = _orderservice.GetAllOrders();
             var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
             return Ok(orderDto);
+        }
+
+        // READ 
+        [HttpGet("api/order/getorderid/{id}")]
+        public ActionResult GetOrderIdByOrderNb(int id)
+        {
+            int _intOrderNb = id;
+            int orderId = _orderservice.GetOrderIdByOrderNb(_intOrderNb);
+            return Ok (orderId);
         }
 
         // READ
