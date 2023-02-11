@@ -46,10 +46,10 @@ namespace OrderFlowStudio.Api.Controllers
         }
 
         // READ 
-        [HttpGet("api/order/getorderis")]
-        public ActionResult GetOrderIdByOrderNb(string orderNb)
+        [HttpGet("api/order/getorderid/{id}")]
+        public ActionResult GetOrderIdByOrderNb(int id)
         {
-            int _intOrderNb = ToInt32(orderNb);
+            int _intOrderNb = id;
             int orderId = _orderservice.GetOrderIdByOrderNb(_intOrderNb);
             return Ok (orderId);
         }
