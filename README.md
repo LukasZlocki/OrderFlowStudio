@@ -1,7 +1,7 @@
-# OrderFlowStudio - Backend
+# OrderFlowStudio - Frontend
 
 Application to handle with production orders and its statuses during process steps.
-For frontend app refer to link : https://github.com/LukasZlocki/OrderFlowStudioBlazor.Frontend
+For backend for the frontend refer to link : https://github.com/LukasZlocki/OrderFlowStudio
 
 ## General Information
 
@@ -20,6 +20,7 @@ The statusses essential for Production Planist are:
 * is the correction process needed for the order,
 * is the correction process finished for the order,
 * How many pcs are finished and ready to send to customer,
+
 At present  Production Planist get this feedback after 8 - 24 hours many times that cause problem with material flow.
 
 ## The solution:
