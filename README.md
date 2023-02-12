@@ -16,11 +16,11 @@ The painting line and its process takes around 2.5 - 6 hours to process the orde
 There is no feedback to Production Planist about order statuses that are being processes in the area.
 The statusses essential for Production Planist are:
 * is the order is started,
-* is all pcs are processed correctly
-* is the correction process needed for the order
-* is the correction process finished for the order
-* How many pcs are finished and ready to send to customer
-Production planist get this feedback after 8 - 24 hours many times that cause problem with material flow planning due to:
+* is all pcs are processed correctly,
+* is the correction process needed for the order,
+* is the correction process finished for the order,
+* How many pcs are finished and ready to send to customer,
+At present  Production Planist get this feedback after 8 - 24 hours many times that cause problem with material flow.
 
 ## The solution:
 
