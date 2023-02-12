@@ -1,7 +1,7 @@
-# OrderFlowStudio - Frontend
+# OrderFlowStudio - Backend
 
 Application to handle with production orders and its statuses during process steps.
-For backend for the frontend refer to link : https://github.com/LukasZlocki/OrderFlowStudio
+For frontend app refer to link : https://github.com/LukasZlocki/OrderFlowStudioBlazor.Frontend
 
 ## General Information
 
@@ -19,7 +19,7 @@ The statusses essential for Production Planist are:
 * is all pcs are processed correctly,
 * is the correction process needed for the order,
 * is the correction process finished for the order,
-* How many pcs are finished and ready to send to customer,
+* How many pcs are finished and ready to send to customer.
 
 At present  Production Planist get this feedback after 8 - 24 hours many times that cause problem with material flow.
 
@@ -43,11 +43,12 @@ Process stages:
 * main branch consist newest release.
 * Release{number} branch covers all releases.
 
-## Technologies Used
+## Technology stack:
 
-* C#
-* .NET 6.0
-* Web API
+* Language and Framework: C#, .NET Core, Frontend Blazor/Razor
+* Database: MS SQL Server.
+* Architecture and design patterns: Onion structure.
+* Libraries: Entity Framework.
 
 ## Features
 
