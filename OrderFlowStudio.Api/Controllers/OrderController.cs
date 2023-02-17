@@ -19,7 +19,7 @@ namespace OrderFlowStudio.Api.Controllers
 
 
         // CREATE
-        [HttpPost("api/order")]
+        [HttpPost("api/addorder")]
         public ActionResult CreateOrder([FromBody] OrderCreateDto orderCreateDto)
         {
             var order = OrderMapper.SerializeOrderCreateDtoToOrder(orderCreateDto);
