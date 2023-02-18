@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using OrderFlowStudio.Api.Dtos;
 using OrderFlowStudio.Api.Serialization;
 using OrderFlowStudio.Services.Order_Service;
+using OrderFlowStudio.Services.OrderRaport_Service;
 using static System.Convert;
 
 namespace OrderFlowStudio.Api.Controllers
@@ -11,6 +12,7 @@ namespace OrderFlowStudio.Api.Controllers
     public class OrderController : ControllerBase
     {
         private readonly IOrderService _orderservice;
+        private readonly IOrderRaportService _raportservice; 
 
         public OrderController(IOrderService orderService)
         {
@@ -21,7 +23,8 @@ namespace OrderFlowStudio.Api.Controllers
         // CREATE
         [HttpPost("api/addorder")]
         public ActionResult CreateOrder([FromBody] OrderCreateDto orderCreateDto)
-        {
+        {  
+            // ToDo: Code here - Create raport in this step and transfer raport id to this order 
             var order = OrderMapper.SerializeOrderCreateDtoToOrder(orderCreateDto);
             var serviceResponse = _orderservice.AddOrder(order);
             return Ok(serviceResponse);
