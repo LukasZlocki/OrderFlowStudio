@@ -19,5 +19,13 @@ namespace OrderFlowStudio.Api.Serialization
                 StatusDescription = statusDto.StatusDescription
             };
         }
+
+         public static ProductionStatus SerializeProductionStatusCreateDtoToProductionStatus (ProductionStatusCreateDto statusDto){
+            return new ProductionStatus{
+                StatusId = statusDto.StatusId
+            };
+        }
+
+
     }
 }
