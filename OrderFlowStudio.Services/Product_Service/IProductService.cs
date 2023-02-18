@@ -11,6 +11,7 @@ namespace OrderFlowStudio.Services.Product_Service
         // READ
         public List<Product> GetAllProducts();
         public Product GetProductByid(int id);
+        public int GetProductIdByProductNumber(string productNb);
 
         // U PDATE
         public ServiceResponse<bool> UpdateProduct(Product product);
