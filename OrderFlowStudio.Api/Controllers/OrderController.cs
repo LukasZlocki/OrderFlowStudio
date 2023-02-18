@@ -25,6 +25,10 @@ namespace OrderFlowStudio.Api.Controllers
         public ActionResult CreateOrder([FromBody] OrderCreateDto orderCreateDto)
         {  
             // ToDo: Code here - Create raport in this step and transfer raport id to this order 
+            // create raport in db and retrive raportid
+            // find productid by product number
+            // add raport id and product id to order object
+            // crete raport object in db.
             var order = OrderMapper.SerializeOrderCreateDtoToOrder(orderCreateDto);
             var serviceResponse = _orderservice.AddOrder(order);
             return Ok(serviceResponse);
