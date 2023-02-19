@@ -4,6 +4,8 @@ using OrderFlowStudio.Api.Dtos;
 using OrderFlowStudio.Api.Serialization;
 using OrderFlowStudio.Services.Order_Service;
 using OrderFlowStudio.Services.OrderRaport_Service;
+using OrderFlowStudio.Services.Product_Service;
+using OrderFlowStudio.Services.Status_Service;
 using static System.Convert;
 
 namespace OrderFlowStudio.Api.Controllers
@@ -11,26 +13,49 @@ namespace OrderFlowStudio.Api.Controllers
     [ApiController]
     public class OrderController : ControllerBase
     {
-        private readonly IOrderService _orderservice;
-        private readonly IOrderRaportService _raportservice; 
+        private readonly IOrderService _orderService;
+        private readonly IOrderRaportService _raportService; 
+        private readonly IProductService _productService;
+        private readonly IStatusService _statusService;
 
-        public OrderController(IOrderService orderService)
+        public OrderController(IOrderService orderService, IOrderRaportService raportService, IProductService productService, IStatusService statusService)
         {
-            _orderservice = orderService;
+            _orderService = orderService;
+            _raportService = raportService;
+            _productService = productService;
+            _statusService = statusService;
         }
 
 
         // CREATE
         [HttpPost("api/addorder")]
-        public ActionResult CreateOrder([FromBody] OrderCreateDto orderCreateDto)
+        public ActionResult CreateOrder([FromBody] OrderOnCreate orderOnCreateDto)
         {  
-            // ToDo: Code here - Create raport in this step and transfer raport id to this order 
-            // create raport in db and retrive raportid
-            // find productid by product number
-            // add raport id and product id to order object
-            // crete raport object in db.
+            // 1 - extract product id from db by product number
+            int productId = _productService.GetProductIdByProductNumber(orderOnCreateDto.ProductNumber);
+
+            // 2 - extract status id from db : status "Not started" - status nb: '15' by retriving its id from db.
+            int StatusIdFromDb = _statusService.GetStatusIdByStatusNumber(15);
+
+            // 3 - create new raport in db and retrive its id (raport id)
+            OrderRaportCreateDto raportCreateDto = new OrderRaportCreateDto();
+            raportCreateDto.QuantityFinished = 0; // it is starting raport
+            raportCreateDto.StatusDto.StatusId = StatusIdFromDb;
+            var raport = OrderRaportMapper.SerializeOrderRaportCreateDtoToOrderRaport(raportCreateDto);
+            var serviceResponseRaport = _raportService.AddOrderRaport(raport);       
+            // Get raport id in order to add it to new order
+            int raportId = serviceResponseRaport.Data.OrderId;
+
+            // 4- Assembly all needed data to orderCreateDto object and create new order in db
+            OrderCreateDto orderCreateDto = new OrderCreateDto();
+            orderCreateDto.OrderNumber = orderOnCreateDto.OrderNumber;
+            orderCreateDto.Quantity = orderOnCreateDto.Quantity;
+            orderCreateDto.ProductId = productId;
+            orderCreateDto.RaportId = raportId;
+            // serialize data to order object
             var order = OrderMapper.SerializeOrderCreateDtoToOrder(orderCreateDto);
-            var serviceResponse = _orderservice.AddOrder(order);
+            // create new order in db
+            var serviceResponse = _orderService.AddOrder(order);
             return Ok(serviceResponse);
         }
 
@@ -38,7 +63,7 @@ namespace OrderFlowStudio.Api.Controllers
         [HttpGet("api/order/{id}")]
         public ActionResult GetOrderById(int id)
         {
-            var order = _orderservice.GetOrderById(id);
+            var order = _orderService.GetOrderById(id);
             var orderDto = OrderMapper.SerializeOrderToOrderReadDto(order);
             return Ok(orderDto);
         }
@@ -47,7 +72,7 @@ namespace OrderFlowStudio.Api.Controllers
         [HttpGet("api/order")]
         public ActionResult GetOrders(int id)
         {
-            var orders = _orderservice.GetAllOrders();
+            var orders = _orderService.GetAllOrders();
             var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
             return Ok(orderDto);
         }
@@ -57,7 +82,7 @@ namespace OrderFlowStudio.Api.Controllers
         public ActionResult GetOrderIdByOrderNb(int id)
         {
             int _intOrderNb = id;
-            int orderId = _orderservice.GetOrderIdByOrderNb(_intOrderNb);
+            int orderId = _orderService.GetOrderIdByOrderNb(_intOrderNb);
             return Ok (orderId);
         }
 
@@ -65,7 +90,7 @@ namespace OrderFlowStudio.Api.Controllers
         [HttpGet("api/order/byordernumber/{id}")]
         public ActionResult GetOrderRaportIdByOrderNb(int id)
         {
-            var orderRaportId = _orderservice.GetOrderRaportIdByOrderNb(id);
+            var orderRaportId = _orderService.GetOrderRaportIdByOrderNb(id);
             return Ok(orderRaportId);
         }
 
@@ -73,7 +98,7 @@ namespace OrderFlowStudio.Api.Controllers
         [HttpGet("api/order/maskingmodule")]
         public ActionResult GetOrdersNotStartedInSystem()
         {
-            var orders = _orderservice.GetOrdersFilteredForMaskingArea();
+            var orders = _orderService.GetOrdersFilteredForMaskingArea();
             var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
             return Ok(orderDto);
         }
