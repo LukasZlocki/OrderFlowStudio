@@ -69,6 +69,14 @@ namespace OrderFlowStudio.Services.Product_Service
             return service;
         }
 
+        // READ
+        public int GetProductIdByProductNumber(string productNb)
+        {
+            var service = _db.Products.Where(nb => nb.PartNumber == productNb).FirstOrDefault();
+            int productId = service.Id;
+            return productId;
+        }
+
 
         // UPDATE
         /// <summary>
@@ -148,6 +156,6 @@ namespace OrderFlowStudio.Services.Product_Service
             }
         }
 
-       
+
     }
 }
