@@ -49,8 +49,8 @@ namespace OrderFlowStudio.Api.Serialization
             {
                 OrderNumber = order.OrderNumber,
                 Quantity = order.Quantity,
-                Product = ProductMapper.SerializeProductCreateDtoToProduct(order.ProductDto),
-                Raport = OrderRaportMapper.SerializeOrderRaportCreateDtoToOrderRaport(order.RaportDto)
+                ProductId = order.ProductId,
+                RaportId = order.RaportId
             };
         }
 
