@@ -31,6 +31,16 @@ namespace OrderFlowStudio.Api.Controllers
         [HttpPost("api/addorder")]
         public ActionResult CreateOrder([FromBody] OrderOnCreate orderOnCreateDto)
         {  
+            OrderCreateDto orderCreateDto = new OrderCreateDto();
+            orderCreateDto.OrderNumber = 777777;
+            orderCreateDto.Quantity = 50;
+            orderCreateDto.ProductId = 2;
+            orderCreateDto.RaportId = 13;
+
+            var order = OrderMapper.SerializeOrderCreateDtoToOrder(orderCreateDto);
+            // create new order in db
+            var serviceResponse = _orderService.AddOrder(order);     
+
             /* I 've just find out that I need to remodel db in order to be able to create new orders. - I wll remodel db on separate branch and get back as soon as remodeling is prepared
             // 1 - extract product id from db by product number
             int productId = _productService.GetProductIdByProductNumber(orderOnCreateDto.ProductNumber);
@@ -58,7 +68,6 @@ namespace OrderFlowStudio.Api.Controllers
             // create new order in db
             var serviceResponse = _orderService.AddOrder(order);
             */
-            var serviceResponse = false;
             return Ok(serviceResponse);
         }
 
