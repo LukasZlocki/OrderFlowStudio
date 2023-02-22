@@ -1,10 +1,9 @@
 namespace OrderFlowStudio.Api.Dtos
 {
-    public class OrderCreateDto
+    public class OrderOnCreate
     {
         public int OrderNumber { get; set; } 
         public int Quantity { get; set; }
-        public int ProductId { get; set; }
-        public int RaportId { get; set; }
+        public string ProductNumber { get; set; }
     }
 }

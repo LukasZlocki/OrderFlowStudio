@@ -15,6 +15,7 @@ using OrderFlowStudio.Data;
 using OrderFlowStudio.Services.Order_Service;
 using OrderFlowStudio.Services.OrderRaport_Service;
 using OrderFlowStudio.Services.Product_Service;
+using OrderFlowStudio.Services.Status_Service;
 
 namespace OrderFlowStudio.Api
 {
@@ -46,6 +47,7 @@ namespace OrderFlowStudio.Api
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<IOrderRaportService, OrderRaportService>();
             services.AddTransient<IProductService, ProductService>();
+            services.AddTransient<IStatusService, StatusService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

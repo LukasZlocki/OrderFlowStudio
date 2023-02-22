@@ -43,9 +43,10 @@ namespace OrderFlowStudio.Api.Serialization
             return new OrderRaport
             {
                 QuantityFinished = raportDto.QuantityFinished,
-                Status = ProductionStatusMapper.SerializeProductionStatusDtoToProductionStatus(raportDto.Status)
+                StatusId = raportDto.StatusId
             };
         }
+        
 
         public static List<OrderRaportReadDto> SerializeListOfOrderRaportsToOrderRaportReadDtoList(IEnumerable<OrderRaport> orderRaports)
         {
