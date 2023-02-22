@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using OrderFlowStudio.Api.Dtos;
 using OrderFlowStudio.Api.Serialization;
+using OrderFlowStudio.Data.Models;
 using OrderFlowStudio.Services.Order_Service;
 using OrderFlowStudio.Services.OrderRaport_Service;
 using OrderFlowStudio.Services.Product_Service;
@@ -31,43 +32,38 @@ namespace OrderFlowStudio.Api.Controllers
         [HttpPost("api/addorder")]
         public ActionResult CreateOrder([FromBody] OrderOnCreate orderOnCreateDto)
         {  
-            OrderCreateDto orderCreateDto = new OrderCreateDto();
-            orderCreateDto.OrderNumber = 777777;
-            orderCreateDto.Quantity = 50;
-            orderCreateDto.ProductId = 2;
-            orderCreateDto.RaportId = 13;
-
-            var order = OrderMapper.SerializeOrderCreateDtoToOrder(orderCreateDto);
-            // create new order in db
-            var serviceResponse = _orderService.AddOrder(order);     
-
-            /* I 've just find out that I need to remodel db in order to be able to create new orders. - I wll remodel db on separate branch and get back as soon as remodeling is prepared
-            // 1 - extract product id from db by product number
+             // 1 - extract product id from db by product number
             int productId = _productService.GetProductIdByProductNumber(orderOnCreateDto.ProductNumber);
 
             // 2 - extract status id from db : status "Not started" - status nb: '15' by retriving its id from db.
             int StatusIdFromDb = _statusService.GetStatusIdByStatusNumber(15);
 
             // 3 - create new raport in db and retrive its id (raport id)
-            OrderRaportCreateDto raportCreateDto = new OrderRaportCreateDto() { StatusDto = new ProductionStatusCreateDto() };
-            raportCreateDto.QuantityFinished = 0; // it is starting raport
-            raportCreateDto.StatusDto.StatusId = StatusIdFromDb;
-            var raport = OrderRaportMapper.SerializeOrderRaportCreateDtoToOrderRaport(raportCreateDto);
-            var serviceResponseRaport = _raportService.AddOrderRaport(raport);       
-            // Get raport id in order to add it to new order
-            int raportId = serviceResponseRaport.Data.OrderId;
+            var raportCreateDto = new OrderRaportCreateDto
+            {
+                QuantityFinished = 0, // it is starting raport
+                StatusId = StatusIdFromDb
+            };
 
-            // 4- Assembly all needed data to orderCreateDto object and create new order in db
-            OrderCreateDto orderCreateDto = new OrderCreateDto();
-            orderCreateDto.OrderNumber = orderOnCreateDto.OrderNumber;
-            orderCreateDto.Quantity = orderOnCreateDto.Quantity;
-            orderCreateDto.ProductId = productId;
-            orderCreateDto.RaportId = raportId;
-            // serialize data to order object
+            var raport = OrderRaportMapper.SerializeOrderRaportCreateDtoToOrderRaport(raportCreateDto);
+
+            var serviceResponseRaport = _raportService.AddOrderRaport(raport);       
+
+            // Get raport id in order to add it to new order
+            int raportId = serviceResponseRaport.Data.Id;
+
+            var orderCreateDto = new OrderCreateDto 
+            {
+                OrderNumber = orderOnCreateDto.OrderNumber,
+                Quantity = orderOnCreateDto.Quantity,
+                ProductId = productId,
+                RaportId = raportId
+            };
             var order = OrderMapper.SerializeOrderCreateDtoToOrder(orderCreateDto);
+            
             // create new order in db
             var serviceResponse = _orderService.AddOrder(order);
-            */
+
             return Ok(serviceResponse);
         }
 
