@@ -110,7 +110,7 @@ namespace OrderFlowStudio.Services.Order_Service
 
         // READ
         /// <summary>
-        /// Returns orders list with order with status status 'not started' 
+        /// Returns orders list of orders with status 'not started' 
         /// </summary>
         /// <returns>List<Order></returns>
         public List<Order> GetOrdersWaitingForMasking()
@@ -122,6 +122,23 @@ namespace OrderFlowStudio.Services.Order_Service
                             .ToList();
             return service;
         }
+
+        // READ
+        /// <summary>
+        /// Returns orders list of orders with status 'in progress' 
+        /// </summary>
+        /// <returns>List<Order></returns>
+        public List<Order> GetOrdersWithStatusMaskingInProgress()
+        {
+            var service = _db.Orders
+                .Include(or => or.Raport).Where(r => r.Raport.Status.StatusCode == 20)
+                    .Include(st => st.Raport.Status)
+                        .Include(p => p.Product)
+                            .ToList();
+            return service;
+        }
+
+
 
         // UPDATE
         /// <summary>
