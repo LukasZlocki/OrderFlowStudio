@@ -138,8 +138,6 @@ namespace OrderFlowStudio.Services.Order_Service
             return service;
         }
 
-
-
         // UPDATE
         /// <summary>
         /// Update order (ex. its status)

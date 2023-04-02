@@ -14,6 +14,7 @@ namespace OrderFlowStudio.Services.Order_Service
         public int GetOrderIdByOrderNb(int orderNb);
         public int GetOrderRaportIdByOrderNb(int id);
         public List<Order> GetOrdersWaitingForMasking();
+        public List<Order> GetOrdersWithStatusMaskingInProgress();
 
         // UPDATE
         public ServiceResponse<bool> UpdateOrder(Order order);
