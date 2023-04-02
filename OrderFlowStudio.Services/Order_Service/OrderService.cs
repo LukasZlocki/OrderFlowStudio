@@ -110,19 +110,17 @@ namespace OrderFlowStudio.Services.Order_Service
 
         // READ
         /// <summary>
-        /// Returns orders list with order not started in system
+        /// Returns orders list with order with status status 'not started' 
         /// </summary>
         /// <returns>List<Order></returns>
-        public List<Order> GetOrdersFilteredForMaskingArea()
+        public List<Order> GetOrdersWaitingForMasking()
         {
             var service = _db.Orders
-                .Include(or => or.Raport).Where(r => r.Raport.Status.StatusCode == 20)
+                .Include(or => or.Raport).Where(r => r.Raport.Status.StatusCode == 15)
                     .Include(p => p.Product)
                         .ToList();
             return service;
         }
-
-
 
         /* NO NEED TO UPDATE ORDER , BUT IN FUTURE UPDATES ONLY ON SPECIFIC NEED AND DO IT BY Id 
         // UPDATE
