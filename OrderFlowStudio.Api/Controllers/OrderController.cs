@@ -111,6 +111,15 @@ namespace OrderFlowStudio.Api.Controllers
             return Ok(orderDto);
         }
 
+        // READ
+        [HttpGet("api/order/maskingareainprogress")]
+        public ActionResult GetOrdersWithStatusMaskingInProgress()
+        {
+            var orders = _orderService.GetOrdersWaitingForMasking();
+            var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
+            return Ok(orderDto);
+        }
+
         /* NO NEED TO UPDATE ORDER , BUT IN FUTURE UPDATES ONLY ON SPECIFIC NEED AND DO IT BY Id 
         // UPDATE 
         [HttpPatch("/api/order")]
