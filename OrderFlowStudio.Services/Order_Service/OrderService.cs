@@ -122,10 +122,9 @@ namespace OrderFlowStudio.Services.Order_Service
             return service;
         }
 
-        /* NO NEED TO UPDATE ORDER , BUT IN FUTURE UPDATES ONLY ON SPECIFIC NEED AND DO IT BY Id 
         // UPDATE
         /// <summary>
-        /// Update order object
+        /// Update order (ex. its status)
         /// </summary>
         /// <param name="order"></param>
         /// <returns><ServiceResponse<bool></returns>
@@ -154,7 +153,6 @@ namespace OrderFlowStudio.Services.Order_Service
                 };
             }
         }
-        */
 
         // DELETE
         /// <summary>

@@ -16,7 +16,7 @@ namespace OrderFlowStudio.Services.Order_Service
         public List<Order> GetOrdersWaitingForMasking();
 
         // UPDATE
-        //public ServiceResponse<bool> UpdateOrderStatuses(Order order);
+        public ServiceResponse<bool> UpdateOrder(Order order);
 
         // DELETE
         public ServiceResponse<bool> DeleteOrder(int id);
