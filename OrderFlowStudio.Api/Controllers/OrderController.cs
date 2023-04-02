@@ -115,7 +115,7 @@ namespace OrderFlowStudio.Api.Controllers
         [HttpGet("api/order/maskingareainprogress")]
         public ActionResult GetOrdersWithStatusMaskingInProgress()
         {
-            var orders = _orderService.GetOrdersWaitingForMasking();
+            var orders = _orderService.GetOrdersWithStatusMaskingInProgress();
             var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
             return Ok(orderDto);
         }
