@@ -103,7 +103,7 @@ namespace OrderFlowStudio.Api.Controllers
         }
 
         // READ
-        [HttpGet("api/order/maskingarea")]
+        [HttpGet("api/order/maskingareanotstarted")]
         public ActionResult GetOrdersWithStatusNotStarted()
         {
             var orders = _orderService.GetOrdersWaitingForMasking();
