@@ -117,8 +117,9 @@ namespace OrderFlowStudio.Services.Order_Service
         {
             var service = _db.Orders
                 .Include(or => or.Raport).Where(r => r.Raport.Status.StatusCode == 15)
-                    .Include(p => p.Product)
-                        .ToList();
+                    .Include(st => st.Raport.Status)
+                        .Include(p => p.Product)
+                            .ToList();
             return service;
         }
 
