@@ -122,9 +122,9 @@ namespace OrderFlowStudio.Api.Controllers
 
         // UPDATE 
         [HttpPatch("/api/order")]
-        public ActionResult UpdateOrder([FromBody] OrderCreateDto orderCreateDto)
+        public ActionResult UpdateOrder([FromBody] OrderReadDto orderReadDto)
         {
-            var order = OrderMapper.SerializeOrderCreateDtoToOrder(orderCreateDto);
+            var order = OrderMapper.SerializeOrderReadDtoToOrder(orderReadDto);
             var serviceResponse = _orderService.UpdateOrder(order);
             return Ok(serviceResponse);
         }
