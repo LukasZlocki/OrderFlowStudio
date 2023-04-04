@@ -129,6 +129,20 @@ namespace OrderFlowStudio.Api.Controllers
             return Ok(serviceResponse);
         }
 
+        // UPDATE
+        [HttpPatch("/api/order/maskinginprogress")]
+        public ActionResult UpdateOrderByMaskingInProgressStatus([FromBody] OrderReadDto orderReadDto)
+        {
+            int _maskingInProgressStatusCode = 20;
+            var statusObject = _statusService.GetProductionStatusObjectByStatusCode(_maskingInProgressStatusCode);
+            var productionStatusReadDto = ProductionStatusMapper.SerializeProductionStatusToProductionStatusReadDto(statusObject);
+            orderReadDto.RaportDto.StatusDto = productionStatusReadDto;
+
+            var order = OrderMapper.SerializeOrderReadDtoToOrder(orderReadDto);
+            var serviceResponse = _orderService.UpdateOrder(order);
+            return Ok(serviceResponse);
+        }
+
         // DELETE
         // nothink to code here !
         

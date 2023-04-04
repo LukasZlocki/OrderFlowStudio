@@ -8,6 +8,7 @@ namespace OrderFlowStudio.Api.Serialization
         public static ProductionStatusReadDto SerializeProductionStatusToProductionStatusReadDto (ProductionStatus status){
             return new ProductionStatusReadDto
             {
+                StatusId = status.StatusId,
                 StatusCode = status.StatusCode,
                 StatusDescription = status.StatusDescription
             };
@@ -15,6 +16,7 @@ namespace OrderFlowStudio.Api.Serialization
 
         public static ProductionStatus SerializeProductionStatusDtoToProductionStatus (ProductionStatusReadDto statusDto){
             return new ProductionStatus{
+                StatusId = statusDto.StatusId,
                 StatusCode = statusDto.StatusCode,
                 StatusDescription = statusDto.StatusDescription
             };
