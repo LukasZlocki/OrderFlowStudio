@@ -134,10 +134,14 @@ namespace OrderFlowStudio.Api.Controllers
         public ActionResult UpdateOrderByMaskingInProgressStatus([FromBody] OrderReadDto orderReadDto)
         {
             int _maskingInProgressStatusCode = 20;
+            // retriving status object by status code
             var statusObject = _statusService.GetProductionStatusObjectByStatusCode(_maskingInProgressStatusCode);
+            // transfering object into Dto
             var productionStatusReadDto = ProductionStatusMapper.SerializeProductionStatusToProductionStatusReadDto(statusObject);
+            // Add Dto status object into order read Dto
             orderReadDto.RaportDto.StatusDto = productionStatusReadDto;
 
+            // update order in db
             var order = OrderMapper.SerializeOrderReadDtoToOrder(orderReadDto);
             var serviceResponse = _orderService.UpdateOrder(order);
             return Ok(serviceResponse);
