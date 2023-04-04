@@ -29,5 +29,12 @@ namespace OrderFlowStudio.Services.Status_Service
             var statusesList = _db.Statuses.ToList();
             return statusesList;
         }
+
+        // READ
+        public ProductionStatus GetProductionStatusByStatusCode(int codeStatus)
+        {
+            var statusService = _db.Statuses.Where(co => co.StatusCode == codeStatus).LastOrDefault();
+            return statusService;
+        }
     }
 }

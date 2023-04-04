@@ -8,5 +8,6 @@ namespace OrderFlowStudio.Services.Status_Service
          // READ
          public int GetStatusIdByStatusNumber(int statusNb);
          public List<ProductionStatus> GetListOfProductionStatuses();
+         public ProductionStatus GetProductionStatusByStatusCode(int statusCode);
     }
 }
