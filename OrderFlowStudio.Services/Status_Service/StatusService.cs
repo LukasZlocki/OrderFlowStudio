@@ -33,7 +33,7 @@ namespace OrderFlowStudio.Services.Status_Service
         // READ
         public ProductionStatus GetProductionStatusObjectByStatusCode(int codeStatus)
         {
-            var statusService = _db.Statuses.Where(co => co.StatusCode == codeStatus).LastOrDefault();
+            var statusService = _db.Statuses.Where(c => c.StatusCode == codeStatus).FirstOrDefault();
             return statusService;
         }
     }
