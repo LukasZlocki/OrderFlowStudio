@@ -1,26 +1,18 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OrderFlowStudio.Data.Models
-{
-    public class Order
-    {
-        [Key]
+namespace OrderFlowStudio.Data.Models {
+    public class Order {
         public int Id { get; set; } 
-          
         [Required]
         [MaxLength(10)]
-        public int OrderNumber { get; set; }
-       
+        public int OrderNumber { get; set; } 
         [Required]
         public int Quantity { get; set; }
 
         public int ProductId { get; set; }
-        [ForeignKey("ProductId")]
         public Product Product { get; set; }
         
         public int RaportId { get; set; }
-        [ForeignKey("RaportId")]
-        public OrderRaport Raport {get; set;}
+        public Raport Raport {get; set;}
     }
 }
