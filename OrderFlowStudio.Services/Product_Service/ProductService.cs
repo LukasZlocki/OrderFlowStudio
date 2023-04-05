@@ -73,7 +73,7 @@ namespace OrderFlowStudio.Services.Product_Service
         public int GetProductIdByProductNumber(string productNb)
         {
             var service = _db.Products.Where(nb => nb.PartNumber == productNb).FirstOrDefault();
-            int productId = service.Id;
+            int productId = service.ProductId;
             return productId;
         }
 

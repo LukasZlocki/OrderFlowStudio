@@ -6,14 +6,14 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
     public interface IOrderRaportService
     {
          // CREATE
-        public ServiceResponse<OrderRaport> AddOrderRaport(OrderRaport orderRaport);
+        public ServiceResponse<Raport> AddOrderRaport(Raport orderRaport);
 
         // READ
-        public List<OrderRaport> GetAllOrderRaports();
-        public OrderRaport GetOrderRaportById(int id);
+        public List<Raport> GetAllOrderRaports();
+        public Raport GetOrderRaportById(int id);
 
         // UPDATE
-        public ServiceResponse<bool> UpdateOrderRaportStatuses(OrderRaport orderRaport);
+        public ServiceResponse<bool> UpdateOrderRaportStatuses(Raport orderRaport);
 
         // DELETE
         public ServiceResponse<bool> DeleteOrderRaport(int id);

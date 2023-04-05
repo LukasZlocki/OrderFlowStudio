@@ -103,24 +103,49 @@ namespace OrderFlowStudio.Api.Controllers
         }
 
         // READ
-        [HttpGet("api/order/maskingmodule")]
-        public ActionResult GetOrdersNotStartedInSystem()
+        [HttpGet("api/order/maskingareanotstarted")]
+        public ActionResult GetOrdersWithStatusNotStarted()
         {
-            var orders = _orderService.GetOrdersFilteredForMaskingArea();
+            var orders = _orderService.GetOrdersWaitingForMasking();
             var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
             return Ok(orderDto);
         }
 
-        /* NO NEED TO UPDATE ORDER , BUT IN FUTURE UPDATES ONLY ON SPECIFIC NEED AND DO IT BY Id 
+        // READ
+        [HttpGet("api/order/maskingareainprogress")]
+        public ActionResult GetOrdersWithStatusMaskingInProgress()
+        {
+            var orders = _orderService.GetOrdersWithStatusMaskingInProgress();
+            var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
+            return Ok(orderDto);
+        }
+
         // UPDATE 
         [HttpPatch("/api/order")]
-        public ActionResult UpdateOrder([FromBody] OrderCreateDto orderCreateDto)
+        public ActionResult UpdateOrder([FromBody] OrderReadDto orderReadDto)
         {
-            var order = OrderMapper.SerializeOrderCreateDtoToOrder(orderCreateDto);
-            var serviceResponse = _orderservice.UpdateOrder(order);
+            var order = OrderMapper.SerializeOrderReadDtoToOrder(orderReadDto);
+            var serviceResponse = _orderService.UpdateOrder(order);
             return Ok(serviceResponse);
         }
-        */
+
+        // UPDATE
+        [HttpPatch("/api/order/maskinginprogress")]
+        public ActionResult UpdateOrderByMaskingInProgressStatus([FromBody] OrderReadDto orderReadDto)
+        {
+            int _maskingInProgressStatusCode = 20;
+            // retriving status object by status code
+            var statusObject = _statusService.GetProductionStatusObjectByStatusCode(_maskingInProgressStatusCode);
+            // transfering object into Dto
+            var productionStatusReadDto = ProductionStatusMapper.SerializeProductionStatusToProductionStatusReadDto(statusObject);
+            // Add Dto status object into order read Dto
+            orderReadDto.RaportDto.StatusDto = productionStatusReadDto;
+
+            // update order in db
+            var order = OrderMapper.SerializeOrderReadDtoToOrder(orderReadDto);
+            var serviceResponse = _orderService.UpdateOrder(order);
+            return Ok(serviceResponse);
+        }
 
         // DELETE
         // nothink to code here !
