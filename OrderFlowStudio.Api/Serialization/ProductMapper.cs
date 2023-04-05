@@ -11,7 +11,7 @@ namespace OrderFlowStudio.Api.Serialization
         {
             return new ProductReadDto
             {
-                Id = product.Id,
+                Id = product.ProductId,
                 PartNumber = product.PartNumber,
                 ProductDescription = product.ProductDescription,
             };
@@ -21,7 +21,7 @@ namespace OrderFlowStudio.Api.Serialization
         {
             return new Product
             {
-                Id = productDto.Id,
+                ProductId = productDto.Id,
                 PartNumber = productDto.PartNumber,
                 ProductDescription = productDto.ProductDescription
             };
@@ -41,7 +41,7 @@ namespace OrderFlowStudio.Api.Serialization
         {
             return products.Select(product => new ProductReadDto
             {
-                Id = product.Id, 
+                Id = product.ProductId, 
                 PartNumber = product.PartNumber,
                 ProductDescription = product.ProductDescription
             }).ToList();

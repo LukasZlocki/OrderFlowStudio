@@ -23,8 +23,11 @@ namespace OrderFlowStudio.Api.Serialization
         {
             return new Order 
             {
+                Id = order.Id,
                 OrderNumber = order.OrderNumber,
                 Quantity = order.Quantity,
+                ProductId = order.ProductDto.Id,
+                RaportId = order.RaportDto.Id,
                 Product = ProductMapper.SerializeProductReadDtoToProduct(order.ProductDto),
                 Raport = OrderRaportMapper.SerializeOrderRaportReadDtoToOrderRaport(order.RaportDto)
             };
