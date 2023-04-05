@@ -104,7 +104,7 @@ namespace OrderFlowStudio.Services.Order_Service
                 .Include(or => or.Raport)
                     .FirstOrDefault(nb => nb.OrderNumber == id);
             Order order = service;
-            int orderId = order.Raport.Id;
+            int orderId = order.Raport.RaportId;
             return orderId;
         }
 

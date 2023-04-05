@@ -24,14 +24,14 @@ namespace OrderFlowStudio.Services.Status_Service
         }
 
         // READ
-        public List<ProductionStatus> GetListOfProductionStatuses()
+        public List<Status> GetListOfProductionStatuses()
         {
             var statusesList = _db.Statuses.ToList();
             return statusesList;
         }
 
         // READ
-        public ProductionStatus GetProductionStatusObjectByStatusCode(int codeStatus)
+        public Status GetProductionStatusObjectByStatusCode(int codeStatus)
         {
             var statusService = _db.Statuses.Where(c => c.StatusCode == codeStatus).FirstOrDefault();
             return statusService;

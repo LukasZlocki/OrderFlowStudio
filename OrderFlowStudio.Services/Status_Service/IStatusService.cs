@@ -7,7 +7,7 @@ namespace OrderFlowStudio.Services.Status_Service
     {
          // READ
          public int GetStatusIdByStatusNumber(int statusNb);
-         public List<ProductionStatus> GetListOfProductionStatuses();
-         public ProductionStatus GetProductionStatusObjectByStatusCode(int statusCode);
+         public List<Status> GetListOfProductionStatuses();
+         public Status GetProductionStatusObjectByStatusCode(int statusCode);
     }
 }

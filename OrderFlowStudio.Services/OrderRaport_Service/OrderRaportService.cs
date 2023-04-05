@@ -23,29 +23,29 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
         /// </summary>
         /// <param name="orderRaport"></param>
         /// <returns><ServiceResponse<OrderRaport></returns>
-        public ServiceResponse<OrderRaport> AddOrderRaport(OrderRaport orderRaport)
+        public ServiceResponse<Raport> AddOrderRaport(Raport raport)
         {
             try
             {
-                _db.OrderRaports.Add(orderRaport);
+                _db.Raports.Add(raport);
                 _db.SaveChanges();
-                return new ServiceResponse<OrderRaport>
+                return new ServiceResponse<Raport>
                 {
                     IsSucess = true,
                     Message = "Order raport added.",
                     Time = DateTime.UtcNow,
-                    Data = orderRaport
+                    Data = raport
                 };
 
             }
             catch (Exception e)
             {
-                return new ServiceResponse<OrderRaport>
+                return new ServiceResponse<Raport>
                 {
                     IsSucess = false,
                     Message = e.StackTrace,
                     Time = DateTime.UtcNow,
-                    Data = orderRaport
+                    Data = raport
                 };
             }
         }
@@ -56,9 +56,9 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
         /// Read all order raports
         /// </summary>
         /// <returns><List<OrderRaport></returns>
-        public List<OrderRaport> GetAllOrderRaports()
+        public List<Raport> GetAllOrderRaports()
         {
-            var service = _db.OrderRaports
+            var service = _db.Raports
                                 .Include(st => st.Status)
                                     .ToList();
             return service;
@@ -71,12 +71,12 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
         /// </summary>
         /// <param name="id"></param>
         /// <returns><OrderRaport></returns>
-        public OrderRaport GetOrderRaportById(int id)
+        public Raport GetOrderRaportById(int id)
         {
             //var service = _db.OrderRaports.Find(id);
-            var service = _db.OrderRaports
+            var service = _db.Raports
                 .Include(st => st.Status)
-                    .FirstOrDefault(x => x.Id == id);
+                    .FirstOrDefault(x => x.StatusId == id);
             return service;
         }
 
@@ -87,13 +87,13 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
         /// </summary>
         /// <param name="orderRaport"></param>
         /// <returns>ServiceResponse<bool></returns>
-        public ServiceResponse<bool> UpdateOrderRaportStatuses(OrderRaport orderRaport)
+        public ServiceResponse<bool> UpdateOrderRaportStatuses(Raport Raport)
         {
             try
             {
-                var orderRaportToUpdate = _db.OrderRaports.Find(orderRaport.Id);
-                orderRaportToUpdate = orderRaport;
-                _db.OrderRaports.Update(orderRaportToUpdate);
+                var orderRaportToUpdate = _db.Raports.Find(Raport.RaportId);
+                orderRaportToUpdate = Raport;
+                _db.Raports.Update(orderRaportToUpdate);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
                 {
@@ -125,7 +125,7 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
         /// <returns><ServiceResponse<bool></returns>
         public ServiceResponse<bool> DeleteOrderRaport(int id)
         {
-            var orderRaport = _db.OrderRaports.Find(id);
+            var orderRaport = _db.Raports.Find(id);
 
             if (orderRaport == null)
             {
@@ -140,7 +140,7 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
 
             try
             {
-                _db.OrderRaports.Remove(orderRaport);
+                _db.Raports.Remove(orderRaport);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
                 {
@@ -161,8 +161,7 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
                 };
 
             }
-        }
-
-        
+        }   
+            
     }
 }
