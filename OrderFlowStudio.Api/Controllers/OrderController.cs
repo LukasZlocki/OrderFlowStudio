@@ -50,7 +50,7 @@ namespace OrderFlowStudio.Api.Controllers
             var serviceResponseRaport = _raportService.AddOrderRaport(raport);       
 
             // Get raport id in order to add it to new order
-            int raportId = serviceResponseRaport.Data.Id;
+            int raportId = serviceResponseRaport.Data.RaportId;
 
             var orderCreateDto = new OrderCreateDto 
             {
@@ -128,27 +128,34 @@ namespace OrderFlowStudio.Api.Controllers
             var serviceResponse = _orderService.UpdateOrder(order);
             return Ok(serviceResponse);
         }
-
-        // UPDATE
-        [HttpPatch("/api/order/maskinginprogress")]
-        public ActionResult UpdateOrderByMaskingInProgressStatus([FromBody] OrderReadDto orderReadDto)
-        {
-            int _maskingInProgressStatusCode = 20;
+   
+        // UPDATE 
+        [HttpPut("/api/order/maskinginprogress")]
+        public ActionResult UpdateOrderByOrderIdWithMaskingInProgressStatus([FromBody] OrderReadDto orderReadDto) {
+            // status 20 : masking in progress
+            int _maskingInProgressStatusCode = 20; 
             // retriving status object by status code
             var statusObject = _statusService.GetProductionStatusObjectByStatusCode(_maskingInProgressStatusCode);
-            // transfering object into Dto
-            var productionStatusReadDto = ProductionStatusMapper.SerializeProductionStatusToProductionStatusReadDto(statusObject);
-            // Add Dto status object into order read Dto
-            orderReadDto.RaportDto.StatusDto = productionStatusReadDto;
 
-            // update order in db
-            var order = OrderMapper.SerializeOrderReadDtoToOrder(orderReadDto);
+            // retriving order by orderReadDto Id
+            var order = _orderService.GetOrderById(orderReadDto.Id);
+            // implement new status
+            order.Raport.Status = statusObject;
+            order.Raport.StatusId = statusObject.StatusId;
+
+            /* this is test to use orderReadDto and convert it to Order object <- this is not working and i do not know why !!
+            // orderReadDto to Order | Goal : Compary orderOrder object to order
+            // goal of experiment : find out why i am not able to update db by orderReadDto.
+            Order orderOrder = OrderMapper.SerializeOrderReadDtoToOrder(orderReadDto);
+            orderOrder.Raport.Status = statusObject;
+            orderOrder.Raport.StatusId = statusObject.StatusId;
+            */
+
             var serviceResponse = _orderService.UpdateOrder(order);
             return Ok(serviceResponse);
         }
 
         // DELETE
         // nothink to code here !
-        
     }
 }
