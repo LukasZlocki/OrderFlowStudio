@@ -151,6 +151,17 @@ namespace OrderFlowStudio.Api.Controllers
             orderOrder.Raport.StatusId = statusObject.StatusId;
             */
 
+            /*
+            how to solve the problem !
+            use orderReadDto 
+            base on raport id retrive raport from db
+            retrive status object from db
+            add status object to raport just retrived from db
+            add raport to db by servicerRaport
+            done
+            Hint: do not use orderReadDto during update !
+            */
+
             var serviceResponse = _orderService.UpdateOrder(order);
             return Ok(serviceResponse);
         }
