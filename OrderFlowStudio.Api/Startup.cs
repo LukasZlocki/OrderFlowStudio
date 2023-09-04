@@ -32,6 +32,7 @@ namespace OrderFlowStudio.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddCors();
 
              services.AddControllers()
             .AddJsonOptions(x => x.JsonSerializerOptions.WriteIndented=true);
@@ -56,6 +57,14 @@ namespace OrderFlowStudio.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                    // Other middleware setup
+
+                app.UseCors(builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod();
+                });
             }
 
             app.UseHttpsRedirection();
@@ -68,6 +77,8 @@ namespace OrderFlowStudio.Api
             {
                 endpoints.MapControllers();
             });
+
+            app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
         }
     }
 }
