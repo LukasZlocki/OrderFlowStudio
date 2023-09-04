@@ -104,30 +104,43 @@ namespace OrderFlowStudio.Services.Order_Service
                 .Include(or => or.Raport)
                     .FirstOrDefault(nb => nb.OrderNumber == id);
             Order order = service;
-            int orderId = order.Raport.Id;
+            int orderId = order.Raport.RaportId;
             return orderId;
         }
 
         // READ
         /// <summary>
-        /// Returns orders list with order not started in system
+        /// Returns orders list of orders with status 'not started' 
         /// </summary>
         /// <returns>List<Order></returns>
-        public List<Order> GetOrdersFilteredForMaskingArea()
+        public List<Order> GetOrdersWaitingForMasking()
         {
             var service = _db.Orders
-                .Include(or => or.Raport).Where(r => r.Raport.Status.StatusCode == 20)
-                    .Include(p => p.Product)
-                        .ToList();
+                .Include(or => or.Raport).Where(r => r.Raport.Status.StatusCode == 15)
+                    .Include(st => st.Raport.Status)
+                        .Include(p => p.Product)
+                            .ToList();
             return service;
         }
 
+        // READ
+        /// <summary>
+        /// Returns orders list of orders with status 'in progress' 
+        /// </summary>
+        /// <returns>List<Order></returns>
+        public List<Order> GetOrdersWithStatusMaskingInProgress()
+        {
+            var service = _db.Orders
+                .Include(or => or.Raport).Where(r => r.Raport.Status.StatusCode == 20)
+                    .Include(st => st.Raport.Status)
+                        .Include(p => p.Product)
+                            .ToList();
+            return service;
+        }
 
-
-        /* NO NEED TO UPDATE ORDER , BUT IN FUTURE UPDATES ONLY ON SPECIFIC NEED AND DO IT BY Id 
         // UPDATE
         /// <summary>
-        /// Update order object
+        /// Update order (ex. its status)
         /// </summary>
         /// <param name="order"></param>
         /// <returns><ServiceResponse<bool></returns>
@@ -156,7 +169,6 @@ namespace OrderFlowStudio.Services.Order_Service
                 };
             }
         }
-        */
 
         // DELETE
         /// <summary>

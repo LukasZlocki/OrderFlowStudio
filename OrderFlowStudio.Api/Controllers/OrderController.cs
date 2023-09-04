@@ -50,7 +50,7 @@ namespace OrderFlowStudio.Api.Controllers
             var serviceResponseRaport = _raportService.AddOrderRaport(raport);       
 
             // Get raport id in order to add it to new order
-            int raportId = serviceResponseRaport.Data.Id;
+            int raportId = serviceResponseRaport.Data.RaportId;
 
             var orderCreateDto = new OrderCreateDto 
             {
@@ -103,27 +103,70 @@ namespace OrderFlowStudio.Api.Controllers
         }
 
         // READ
-        [HttpGet("api/order/maskingmodule")]
-        public ActionResult GetOrdersNotStartedInSystem()
+        [HttpGet("api/order/maskingareanotstarted")]
+        public ActionResult GetOrdersWithStatusNotStarted()
         {
-            var orders = _orderService.GetOrdersFilteredForMaskingArea();
+            var orders = _orderService.GetOrdersWaitingForMasking();
             var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
             return Ok(orderDto);
         }
 
-        /* NO NEED TO UPDATE ORDER , BUT IN FUTURE UPDATES ONLY ON SPECIFIC NEED AND DO IT BY Id 
+        // READ
+        [HttpGet("api/order/maskingareainprogress")]
+        public ActionResult GetOrdersWithStatusMaskingInProgress()
+        {
+            var orders = _orderService.GetOrdersWithStatusMaskingInProgress();
+            var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
+            return Ok(orderDto);
+        }
+
         // UPDATE 
         [HttpPatch("/api/order")]
-        public ActionResult UpdateOrder([FromBody] OrderCreateDto orderCreateDto)
+        public ActionResult UpdateOrder([FromBody] OrderReadDto orderReadDto)
         {
-            var order = OrderMapper.SerializeOrderCreateDtoToOrder(orderCreateDto);
-            var serviceResponse = _orderservice.UpdateOrder(order);
+            var order = OrderMapper.SerializeOrderReadDtoToOrder(orderReadDto);
+            var serviceResponse = _orderService.UpdateOrder(order);
             return Ok(serviceResponse);
         }
-        */
+   
+        // UPDATE 
+        [HttpPut("/api/order/maskinginprogress")]
+        public ActionResult UpdateOrderByOrderIdWithMaskingInProgressStatus([FromBody] OrderReadDto orderReadDto) {
+            // status 20 : masking in progress
+            int _maskingInProgressStatusCode = 20; 
+            // retriving status object by status code
+            var statusObject = _statusService.GetProductionStatusObjectByStatusCode(_maskingInProgressStatusCode);
+
+            // retriving order by orderReadDto Id
+            var order = _orderService.GetOrderById(orderReadDto.Id);
+            // implement new status
+            order.Raport.Status = statusObject;
+            order.Raport.StatusId = statusObject.StatusId;
+
+            /* this is test to use orderReadDto and convert it to Order object <- this is not working and i do not know why !!
+            // orderReadDto to Order | Goal : Compary orderOrder object to order
+            // goal of experiment : find out why i am not able to update db by orderReadDto.
+            Order orderOrder = OrderMapper.SerializeOrderReadDtoToOrder(orderReadDto);
+            orderOrder.Raport.Status = statusObject;
+            orderOrder.Raport.StatusId = statusObject.StatusId;
+            */
+
+            /*
+            how to solve the problem !
+            use orderReadDto 
+            base on raport id retrive raport from db
+            retrive status object from db
+            add status object to raport just retrived from db
+            add raport to db by servicerRaport
+            done
+            Hint: do not use orderReadDto during update !
+            */
+
+            var serviceResponse = _orderService.UpdateOrder(order);
+            return Ok(serviceResponse);
+        }
 
         // DELETE
         // nothink to code here !
-        
     }
 }

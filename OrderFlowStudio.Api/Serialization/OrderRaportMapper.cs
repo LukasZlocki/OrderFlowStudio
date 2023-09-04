@@ -7,40 +7,41 @@ namespace OrderFlowStudio.Api.Serialization
 {
     public static class OrderRaportMapper
     {
-        public static OrderRaportReadDto SerializeOrderRaportToOrderRaportReadDto(OrderRaport raport)
+        public static OrderRaportReadDto SerializeOrderRaportToOrderRaportReadDto(Raport raport)
         {
             return new OrderRaportReadDto
             {
-                Id = raport.Id,
+                Id = raport.RaportId,
                 QuantityFinished = raport.QuantityFinished,
                 StatusDto = ProductionStatusMapper.SerializeProductionStatusToProductionStatusReadDto(raport.Status),
             };            
         }
-        public static OrderRaport SerializeStatusesOnlyOfOrderRaportReadDtoToOrderRaport( OrderRaportReadDto raportDto)
+        public static Raport SerializeStatusesOnlyOfOrderRaportReadDtoToOrderRaport( OrderRaportReadDto raportDto)
         {
-            return new OrderRaport
+            return new Raport
             {
-                Id = raportDto.Id,
+                RaportId = raportDto.Id,
                 QuantityFinished = raportDto.QuantityFinished,
                 //Order = OrderMapper.SerializeOrderReadDtoToOrder(raportDto.OrderDto),
                 Status = ProductionStatusMapper.SerializeProductionStatusDtoToProductionStatus(raportDto.StatusDto)
             };            
         }
 
-        public static OrderRaport SerializeOrderRaportReadDtoToOrderRaport(OrderRaportReadDto raportDto)
+        public static Raport SerializeOrderRaportReadDtoToOrderRaport(OrderRaportReadDto raportDto)
         {
-            return new OrderRaport
+            return new Raport
             {
-                Id = raportDto.Id,
+                RaportId = raportDto.Id,
+                StatusId = raportDto.StatusDto.StatusId,
                 QuantityFinished = raportDto.QuantityFinished,
                 //Order = OrderMapper.SerializeOrderReadDtoToOrder(raportDto.OrderDto),
                 Status = ProductionStatusMapper.SerializeProductionStatusDtoToProductionStatus(raportDto.StatusDto)
             };            
         }
 
-        public static OrderRaport SerializeOrderRaportCreateDtoToOrderRaport(OrderRaportCreateDto raportDto)
+        public static Raport SerializeOrderRaportCreateDtoToOrderRaport(OrderRaportCreateDto raportDto)
         {
-            return new OrderRaport
+            return new Raport
             {
                 QuantityFinished = raportDto.QuantityFinished,
                 StatusId = raportDto.StatusId
@@ -48,11 +49,11 @@ namespace OrderFlowStudio.Api.Serialization
         }
         
 
-        public static List<OrderRaportReadDto> SerializeListOfOrderRaportsToOrderRaportReadDtoList(IEnumerable<OrderRaport> orderRaports)
+        public static List<OrderRaportReadDto> SerializeListOfOrderRaportsToOrderRaportReadDtoList(IEnumerable<Raport> orderRaports)
         {
             return orderRaports.Select(raport => new OrderRaportReadDto 
             {   
-                Id = raport.Id,
+                Id = raport.RaportId,
                 QuantityFinished = raport.QuantityFinished,
                 StatusDto = ProductionStatusMapper.SerializeProductionStatusToProductionStatusReadDto(raport.Status)
                 // ToDo: How to handle with mapping Id and order object ?

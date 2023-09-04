@@ -1,17 +1,11 @@
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace OrderFlowStudio.Data.Models
-{
-    public class Product
-    {
-        [Key]
-        public int Id { get; set; }
-        
+namespace OrderFlowStudio.Data.Models {
+    public class Product {
+        public int ProductId { get; set; }     
         [Required]
         [MaxLength(10)]
-        public string PartNumber { get; set; }
-        
+        public string PartNumber { get; set; }  
         [Required]
         [MaxLength(10)]
         public string ProductDescription { get; set; }
