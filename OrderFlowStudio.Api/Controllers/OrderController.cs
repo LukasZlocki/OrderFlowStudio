@@ -128,6 +128,15 @@ namespace OrderFlowStudio.Api.Controllers
             var serviceResponse = _orderService.UpdateOrder(order);
             return Ok(serviceResponse);
         }
+
+        // UPDATE 
+        [HttpPut("/api/order/{id}")]
+        public ActionResult UpdateOrderShort([FromBody] OrderReadDto orderReadDto)
+        {
+            var order = OrderMapper.SerializeOrderReadDtoToOrder(orderReadDto);
+            var serviceResponse = _orderService.UpdateOrder(order);
+            return Ok(serviceResponse);
+        }
    
         // UPDATE 
         [HttpPut("/api/order/maskinginprogress")]
