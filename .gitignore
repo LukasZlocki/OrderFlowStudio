@@ -1,12 +1,12 @@
 .vscode/
 OrderFlowStudio.Api/obj/
-OrderFlowStudio.Data/obj/
+OrderFlowStudio.Models/obj/
 OrderFlowStudio.Services/obj/
 OrderFlowStudio.Services/bin/
 .vs/
 OrderFlowStudio.Api/bin/
-OrderFlowStudio.Data/Migrations/
-OrderFlowStudio.Data/bin/
+OrderFlowStudio.Models/Migrations/
+OrderFlowStudio.Models/bin/
 obj/
 
 OrderFlowStudio.Services/bin/Debug/
