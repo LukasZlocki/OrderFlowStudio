@@ -11,7 +11,7 @@ namespace OrderFlowStudio.Models
 
         }
         public DbSet<Order> Orders { get; set; }
-        public DbSet<OrderReport> OrderRaports { get; set; }
+        public DbSet<OrderReport> OrderReports { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<ProductionStatus> Statuses { get; set; }
     }
