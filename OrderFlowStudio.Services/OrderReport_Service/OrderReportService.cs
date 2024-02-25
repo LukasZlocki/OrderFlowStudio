@@ -2,13 +2,13 @@ using Microsoft.EntityFrameworkCore;
 using OrderFlowStudio.Models;
 using OrderFlowStudio.Models.Models;
 
-namespace OrderFlowStudio.Services.OrderRaport_Service
+namespace OrderFlowStudio.Services.OrderReport_Service
 {
-    public class OrderRaportService : IOrderReportService
+    public class OrderReportService : IOrderReportService
     {
         private readonly OrderDbContext _db;
 
-        public OrderRaportService(OrderDbContext db)
+        public OrderReportService(OrderDbContext db)
         {
             _db = db;
         }
