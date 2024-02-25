@@ -11,6 +11,6 @@ namespace OrderFlowStudio.Models.Models
 
         public int StatusId { get; set; }
         [ForeignKey("StatusId")]
-        public ProductionStatus Status { get; set; }
+        public ProductionStatus? Status { get; set; }
     }
 }

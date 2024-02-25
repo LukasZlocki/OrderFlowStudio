@@ -54,7 +54,7 @@ namespace OrderFlowStudio.Services.Order_Service
         public List<Order> GetAllOrders()
         {
             var service = _db.Orders
-                .Include(or => or.Raport)
+                .Include(or => or.Report)
                     .ThenInclude(st => st.Status)
                         .Include(pr => pr.Product)
                             .ToList();
@@ -65,7 +65,7 @@ namespace OrderFlowStudio.Services.Order_Service
         public Order GetOrderById(int id)
         {
             var service = _db.Orders
-                .Include(or => or.Raport)
+                .Include(or => or.Report)
                     .ThenInclude(st => st.Status)
                         .Include(pr => pr.Product)
                             .FirstOrDefault(x => x.Id == id);
@@ -95,10 +95,10 @@ namespace OrderFlowStudio.Services.Order_Service
         public int GetOrderReportIdByOrderNb(int id)
         {
             var service = _db.Orders
-                .Include(or => or.Raport)
+                .Include(or => or.Report)
                     .FirstOrDefault(nb => nb.OrderNumber == id);
             Order order = service;
-            int orderId = order.Raport.Id;
+            int orderId = order.Report.Id;
             return orderId;
         }
 
@@ -110,7 +110,7 @@ namespace OrderFlowStudio.Services.Order_Service
         public List<Order> GetOrdersFilteredForMaskingArea()
         {
             var service = _db.Orders
-                .Include(or => or.Raport).Where(r => r.Raport.Status.StatusCode == 20)
+                .Include(or => or.Report).Where(r => r.Report.Status.StatusCode == 20)
                     .Include(p => p.Product)
                         .ToList();
             return service;
