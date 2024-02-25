@@ -1,5 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using OrderFlowStudio.Models;
+using OrderFlowStudio.Services.Order_Service;
+using OrderFlowStudio.Services.Product_Service;
+using OrderFlowStudio.Services.Status_Service;
+using OrderFlowStudio.Services.OrderReport_Service;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +24,10 @@ builder.Services.AddDbContext<OrderDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-
+builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IOrderReportService, OrderReportService>();
+builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<IStatusService, StatusService>();
 
 var app = builder.Build();
 
