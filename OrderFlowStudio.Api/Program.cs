@@ -1,4 +1,12 @@
+using Microsoft.EntityFrameworkCore;
+using OrderFlowStudio.Models;
+using OrderFlowStudio.Services.Order_Service;
+using OrderFlowStudio.Services.Product_Service;
+using OrderFlowStudio.Services.Status_Service;
+using OrderFlowStudio.Services.OrderReport_Service;
+
 var builder = WebApplication.CreateBuilder(args);
+
 
 // Add services to the container.
 
@@ -6,6 +14,20 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddControllers()
+    .AddJsonOptions(x => x.JsonSerializerOptions.WriteIndented = true);
+
+// Database configuration
+builder.Services.AddDbContext<OrderDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
+});
+
+builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IOrderReportService, OrderReportService>();
+builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<IStatusService, StatusService>();
 
 var app = builder.Build();
 

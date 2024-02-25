@@ -2,13 +2,13 @@ using Microsoft.EntityFrameworkCore;
 using OrderFlowStudio.Models;
 using OrderFlowStudio.Models.Models;
 
-namespace OrderFlowStudio.Services.OrderRaport_Service
+namespace OrderFlowStudio.Services.OrderReport_Service
 {
-    public class OrderRaportService : IOrderReportService
+    public class OrderReportService : IOrderReportService
     {
         private readonly OrderDbContext _db;
 
-        public OrderRaportService(OrderDbContext db)
+        public OrderReportService(OrderDbContext db)
         {
             _db = db;
         }
@@ -53,7 +53,7 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
         /// <returns><List<OrderRaport></returns>
         public List<OrderReport> GetAllOrderReports()
         {
-            var service = _db.OrderRaports
+            var service = _db.OrderReports
                                 .Include(st => st.Status)
                                     .ToList();
             return service;
@@ -86,7 +86,7 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
             {
                 var orderReportToUpdate = _db.OrderReports.Find(orderReport.Id);
                 orderReportToUpdate = orderReport;
-                _db.OrderRaports.Update(orderReportToUpdate);
+                _db.OrderReports.Update(orderReportToUpdate);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
                 {
@@ -132,7 +132,7 @@ namespace OrderFlowStudio.Services.OrderRaport_Service
 
             try
             {
-                _db.OrderRaports.Remove(orderReport);
+                _db.OrderReports.Remove(orderReport);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
                 {

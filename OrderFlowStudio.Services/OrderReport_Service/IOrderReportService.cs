@@ -1,6 +1,6 @@
 using OrderFlowStudio.Models.Models;
 
-namespace OrderFlowStudio.Services.OrderRaport_Service
+namespace OrderFlowStudio.Services.OrderReport_Service
 {
     public interface IOrderReportService
     {
