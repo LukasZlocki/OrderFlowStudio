@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using OrderFlowStudio.Api.Dtos;
+using OrderFlowStudio.Api.Serialization;
 using OrderFlowStudio.Services.Order_Service;
 using OrderFlowStudio.Services.OrderReport_Service;
 using OrderFlowStudio.Services.Product_Service;
@@ -22,7 +24,6 @@ namespace OrderFlowStudio.Api.Controllers
             _statusService = statusService;
         }
 
-
         // CREATE
         [HttpPost("api/addorder")]
         public ActionResult CreateOrder([FromBody] OrderOnCreate orderOnCreateDto)
@@ -45,14 +46,14 @@ namespace OrderFlowStudio.Api.Controllers
             var serviceResponseRaport = _reportService.AddOrderRaport(raport);
 
             // Get raport id in order to add it to new order
-            int raportId = serviceResponseRaport.Data.Id;
+            int reportId = serviceResponseRaport.Data.Id;
 
             var orderCreateDto = new OrderCreateDto
             {
                 OrderNumber = orderOnCreateDto.OrderNumber,
                 Quantity = orderOnCreateDto.Quantity,
                 ProductId = productId,
-                RaportId = raportId
+                ReportId = reportId
             };
             var order = OrderMapper.SerializeOrderCreateDtoToOrder(orderCreateDto);
 
