@@ -17,10 +17,10 @@ namespace OrderFlowStudio.Models.Models
 
         public int ProductId { get; set; }
         [ForeignKey("ProductId")]
-        public Product Product { get; set; }
+        public Product? Product { get; set; }
 
         public int RaportId { get; set; }
         [ForeignKey("RaportId")]
-        public OrderReport Raport { get; set; }
+        public OrderReport? Raport { get; set; }
     }
 }
