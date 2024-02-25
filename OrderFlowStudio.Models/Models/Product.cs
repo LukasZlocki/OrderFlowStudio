@@ -9,10 +9,10 @@ namespace OrderFlowStudio.Models.Models
 
         [Required]
         [MaxLength(10)]
-        public string PartNumber { get; set; }
+        public string? PartNumber { get; set; }
 
         [Required]
         [MaxLength(10)]
-        public string ProductDescription { get; set; }
+        public string? ProductDescription { get; set; }
     }
 }
