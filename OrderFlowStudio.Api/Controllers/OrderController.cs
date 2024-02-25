@@ -41,7 +41,7 @@ namespace OrderFlowStudio.Api.Controllers
                 StatusId = StatusIdFromDb
             };
 
-            var raport = OrderReportMapper.SerializeOrderRaportCreateDtoToOrderRaport(raportCreateDto);
+            var raport = OrderReportMapper.SerializeOrderReportCreateDtoToOrderReport(raportCreateDto);
 
             var serviceResponseRaport = _reportService.AddOrderRaport(raport);
 
