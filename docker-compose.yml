@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  sql_server_orderflow:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: sql_server_container_orderflow
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "OrderFlowStudio!1"
+      MSSQL_PID: Express
+    ports:
+      - "1433:1433"
