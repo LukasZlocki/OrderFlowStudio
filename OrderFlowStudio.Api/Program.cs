@@ -28,10 +28,10 @@ builder.Services.AddDbContext<OrderDbContext>(options =>
 });
 
 builder.Services.AddDbContext<OrderDbContext>();
-builder.Services.AddScoped<OrderService>();
-builder.Services.AddScoped<OrderReportService>();
-builder.Services.AddScoped<ProductService>();
-builder.Services.AddScoped<StatusService>();
+builder.Services.AddTransient<IOrderService, OrderService>();
+builder.Services.AddTransient<IOrderReportService, OrderReportService>();
+builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<IStatusService, StatusService>();
 
 var app = builder.Build();
 
