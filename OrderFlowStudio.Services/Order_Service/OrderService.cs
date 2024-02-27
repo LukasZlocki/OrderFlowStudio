@@ -64,11 +64,19 @@ namespace OrderFlowStudio.Services.Order_Service
         // READ
         public Order GetOrderById(int id)
         {
+            /*
             var service = _db.Orders
                 .Include(or => or.Report)
                     .ThenInclude(st => st.Status)
                         .Include(pr => pr.Product)
-                            .FirstOrDefault(x => x.Id == id);
+                            .Include(re => re.Report)
+                                .FirstOrDefault(x => x.Id == id);
+            */
+            var service = _db.Orders
+                    .Include(pr => pr.Product)
+                        .Include(re => re.Report)
+                            .ThenInclude(st => st.Status)
+                                .FirstOrDefault(x => x.Id == id);
             return service;
         }
 
