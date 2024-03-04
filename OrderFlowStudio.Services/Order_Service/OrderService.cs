@@ -107,12 +107,93 @@ namespace OrderFlowStudio.Services.Order_Service
         /// Returns orders list with order not started in system
         /// </summary>
         /// <returns>List<Order></returns>
+        public List<Order> GetOrdersFilteredNotStarted()
+        {
+            var service = _db.Orders
+                .Include(or => or.Report)
+                    .ThenInclude(r => r.Status) 
+                        .Include(p => p.Product)
+                            .Where(r => r.Report.Status.StatusCode == 10)
+                                .ToList();
+            return service;
+        }
+
+        // READ
+        /// <summary>
+        /// Returns orders list with order not started in system
+        /// </summary>
+        /// <returns>List<Order></returns>
         public List<Order> GetOrdersFilteredForMaskingArea()
         {
             var service = _db.Orders
                 .Include(or => or.Report).Where(r => r.Report.Status.StatusCode == 20)
                     .Include(p => p.Product)
                         .ToList();
+            return service;
+        }
+
+        // READ
+        /// <summary>
+        /// Returns orders list with order with status masking in progress
+        /// </summary>
+        /// <returns>List<Order></returns>
+        public List<Order> GetOrdersFilteredMaskingInProgress()
+        {
+            var service = _db.Orders
+                .Include(or => or.Report)
+                    .ThenInclude(r => r.Status)
+                        .Include(p => p.Product)
+                            .Where(r => r.Report.Status.StatusCode == 20)
+                                .ToList();
+            return service;
+        }
+
+        // READ
+        /// <summary>
+        /// Returns orders list with status processing in progress
+        /// </summary>
+        /// <returns>List<Order></returns>
+        public List<Order> GetOrdersFilteredProcessingInProgress()
+        {
+            var service = _db.Orders
+                .Include(or => or.Report)
+                    .ThenInclude(r => r.Status)
+                        .Include(p => p.Product)
+                            .Where(r => r.Report.Status.StatusCode == 30)
+                                .ToList();
+            return service;
+        }
+
+        // READ
+        /// <summary>
+        /// Returns orders list with status correction in progress
+        /// </summary>
+        /// <returns>List<Order></returns>
+        public List<Order> GetOrdersFilteredCorrectionInProgress()
+        {
+            var service = _db.Orders
+                .Include(or => or.Report)
+                    .ThenInclude(r => r.Status)
+                        .Include(p => p.Product)
+                            .Where(r => r.Report.Status.StatusCode == 40)
+                                .ToList();
+            return service;
+        }
+
+
+        // READ
+        /// <summary>
+        /// Returns orders list with status packing in progress
+        /// </summary>
+        /// <returns>List<Order></returns>
+        public List<Order> GetOrdersFilteredPackingInProgress()
+        {
+            var service = _db.Orders
+                .Include(or => or.Report)
+                    .ThenInclude(r => r.Status)
+                        .Include(p => p.Product)
+                            .Where(r => r.Report.Status.StatusCode == 50)
+                                .ToList();
             return service;
         }
 
@@ -158,5 +239,7 @@ namespace OrderFlowStudio.Services.Order_Service
                 };
             }
         }
+
+
     }
 }

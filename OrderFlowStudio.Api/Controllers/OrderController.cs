@@ -107,6 +107,51 @@ namespace OrderFlowStudio.Api.Controllers
             return Ok(orderDto);
         }
 
+        // READ
+        [HttpGet("api/order/notstarted")]
+        public ActionResult GetOrdersWithStatusNotStarted()
+        {
+            var orders = _orderService.GetOrdersFilteredNotStarted();
+            var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
+            return Ok(orderDto);
+        }
+
+        // READ
+        [HttpGet("api/order/maskinginprogress")]
+        public ActionResult GetOrdersWithStatusMaskingInProgress()
+        {
+            var orders = _orderService.GetOrdersFilteredMaskingInProgress();
+            var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
+            return Ok(orderDto);
+        }
+
+        // READ
+        [HttpGet("api/order/processinginprogress")]
+        public ActionResult GetOrdersWithStatusProcessingInProgress()
+        {
+            var orders = _orderService.GetOrdersFilteredProcessingInProgress();
+            var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
+            return Ok(orderDto);
+        }
+
+        // READ
+        [HttpGet("api/order/correctioninprogress")]
+        public ActionResult GetOrdersWithStatusCorrectionInProgress()
+        {
+            var orders = _orderService.GetOrdersFilteredCorrectionInProgress();
+            var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
+            return Ok(orderDto);
+        }
+
+        // READ
+        [HttpGet("api/order/packinginprogress")]
+        public ActionResult GetOrdersWithStatusPackingInProgress()
+        {
+            var orders = _orderService.GetOrdersFilteredPackingInProgress();
+            var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
+            return Ok(orderDto);
+        }
+
         // DELETE
         // nothink to code here !
 
