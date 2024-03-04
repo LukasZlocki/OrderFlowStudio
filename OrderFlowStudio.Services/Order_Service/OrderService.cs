@@ -116,6 +116,22 @@ namespace OrderFlowStudio.Services.Order_Service
             return service;
         }
 
+        // READ
+        /// <summary>
+        /// Returns orders list with order with status masking in progress
+        /// </summary>
+        /// <returns>List<Order></returns>
+        public List<Order> GetOrdersFilteredMaskingInProgress()
+        {
+            var service = _db.Orders
+                .Include(or => or.Report)
+                    .ThenInclude(r => r.Status) // Include the Status object
+                .Include(p => p.Product)
+                .Where(r => r.Report.Status.StatusCode == 20)
+                .ToList();
+            return service;
+        }
+
         // DELETE
         /// <summary>
         /// Delete order object by primary key

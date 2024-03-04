@@ -13,6 +13,7 @@ namespace OrderFlowStudio.Services.Order_Service
         public int GetOrderIdByOrderNb(int orderNb);
         public int GetOrderReportIdByOrderNb(int id);
         public List<Order> GetOrdersFilteredForMaskingArea();
+        public List<Order> GetOrdersFilteredMaskingInProgress();
 
         // DELETE
         public ServiceResponse<bool> DeleteOrder(int id);
