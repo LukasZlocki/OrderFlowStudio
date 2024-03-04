@@ -107,6 +107,22 @@ namespace OrderFlowStudio.Services.Order_Service
         /// Returns orders list with order not started in system
         /// </summary>
         /// <returns>List<Order></returns>
+        public List<Order> GetOrdersFilteredNotStarted()
+        {
+            var service = _db.Orders
+                .Include(or => or.Report)
+                    .ThenInclude(r => r.Status) 
+                        .Include(p => p.Product)
+                            .Where(r => r.Report.Status.StatusCode == 10)
+                                .ToList();
+            return service;
+        }
+
+        // READ
+        /// <summary>
+        /// Returns orders list with order not started in system
+        /// </summary>
+        /// <returns>List<Order></returns>
         public List<Order> GetOrdersFilteredForMaskingArea()
         {
             var service = _db.Orders
@@ -174,5 +190,7 @@ namespace OrderFlowStudio.Services.Order_Service
                 };
             }
         }
+
+
     }
 }

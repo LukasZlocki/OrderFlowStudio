@@ -108,6 +108,15 @@ namespace OrderFlowStudio.Api.Controllers
         }
 
         // READ
+        [HttpGet("api/order/notstarted")]
+        public ActionResult GetOrdersWithStatusNotStarted()
+        {
+            var orders = _orderService.GetOrdersFilteredNotStarted();
+            var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
+            return Ok(orderDto);
+        }
+
+        // READ
         [HttpGet("api/order/maskinginprogress")]
         public ActionResult GetOrdersWithStatusMaskingInProgress()
         {
