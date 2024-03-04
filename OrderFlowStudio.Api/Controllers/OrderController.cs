@@ -134,6 +134,15 @@ namespace OrderFlowStudio.Api.Controllers
             return Ok(orderDto);
         }
 
+        // READ
+        [HttpGet("api/order/correctioninprogress")]
+        public ActionResult GetOrdersWithStatusCorrectionInProgress()
+        {
+            var orders = _orderService.GetOrdersFilteredCorrectionInProgress();
+            var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
+            return Ok(orderDto);
+        }
+
         // DELETE
         // nothink to code here !
 
