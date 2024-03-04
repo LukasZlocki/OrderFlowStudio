@@ -17,6 +17,7 @@ namespace OrderFlowStudio.Services.Order_Service
         public List<Order> GetOrdersFilteredMaskingInProgress();
         public List<Order> GetOrdersFilteredProcessingInProgress();
         public List<Order> GetOrdersFilteredCorrectionInProgress();
+        public List<Order> GetOrdersFilteredPackingInProgress();
 
         // DELETE
         public ServiceResponse<bool> DeleteOrder(int id);

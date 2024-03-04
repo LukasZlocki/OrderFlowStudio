@@ -180,6 +180,23 @@ namespace OrderFlowStudio.Services.Order_Service
             return service;
         }
 
+
+        // READ
+        /// <summary>
+        /// Returns orders list with status packing in progress
+        /// </summary>
+        /// <returns>List<Order></returns>
+        public List<Order> GetOrdersFilteredPackingInProgress()
+        {
+            var service = _db.Orders
+                .Include(or => or.Report)
+                    .ThenInclude(r => r.Status)
+                        .Include(p => p.Product)
+                            .Where(r => r.Report.Status.StatusCode == 50)
+                                .ToList();
+            return service;
+        }
+
         // DELETE
         /// <summary>
         /// Delete order object by primary key
@@ -222,5 +239,7 @@ namespace OrderFlowStudio.Services.Order_Service
                 };
             }
         }
+
+
     }
 }
