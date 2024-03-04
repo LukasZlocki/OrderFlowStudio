@@ -166,7 +166,7 @@ namespace OrderFlowStudio.Services.Order_Service
 
         // READ
         /// <summary>
-        /// Returns orders list with status processing in progress
+        /// Returns orders list with status correction in progress
         /// </summary>
         /// <returns>List<Order></returns>
         public List<Order> GetOrdersFilteredCorrectionInProgress()
