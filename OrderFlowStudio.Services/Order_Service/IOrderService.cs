@@ -15,7 +15,9 @@ namespace OrderFlowStudio.Services.Order_Service
         public List<Order> GetOrdersFilteredNotStarted();
         public List<Order> GetOrdersFilteredForMaskingArea();
         public List<Order> GetOrdersFilteredMaskingInProgress();
-        
+        public List<Order> GetOrdersFilteredProcessingInProgress();
+
+
 
         // DELETE
         public ServiceResponse<bool> DeleteOrder(int id);
