@@ -32,7 +32,8 @@ namespace OrderFlowStudio.Api.Controllers
             int productId = _productService.GetProductIdByProductNumber(orderOnCreateDto.ProductNumber);
 
             // 2 - extract status id from db : status "Not started" - status nb: '15' by retriving its id from db.
-            int StatusIdFromDb = _statusService.GetStatusIdByStatusNumber(15);
+            int _statusNotStarted = 10;
+            int StatusIdFromDb = _statusService.GetStatusIdByStatusNumber(_statusNotStarted);
 
             // 3 - create new raport in db and retrive its id (raport id)
             var raportCreateDto = new OrderReportCreateDto
