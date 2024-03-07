@@ -14,7 +14,7 @@ Status Code:
 25 - Masking in progress
 30 - Waiting for processing
 35 - Processing in progress
-40 - Waiting for Correction
+40 - Waiting for correction
 45 - Correction in progress
 50 - Waiting for packing
 55 - Packing in progress
