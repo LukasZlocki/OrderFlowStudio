@@ -13,10 +13,14 @@ namespace OrderFlowStudio.Models.Models
 
 /*
 Status Code:
-10 - Not started
-20 - Masking
-30 - Processing
-40 - Correction 
-50 - Packing
-70 - Finished
+10 - Registered
+20 - Waiting for masking
+25 - Masking in progress
+30 - Waiting for processing
+35 - Processing in progress
+40 - Waiting for Correction
+45 - Correction in progress
+50 - Waiting for packing
+55 - Packing in progress
+60 - Finished
 */
