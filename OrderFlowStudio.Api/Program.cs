@@ -27,7 +27,7 @@ builder.Services.AddDbContext<OrderDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddDbContext<OrderDbContext>();
+//builder.Services.AddDbContext<OrderDbContext>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IOrderReportService, OrderReportService>();
 builder.Services.AddTransient<IProductService, ProductService>();

@@ -9,11 +9,14 @@ namespace OrderFlowStudio.Api.Dtos
 
 /*
 Status Code:
-10 - Not in area
-20 - Masking
-30 - Processing
-40 - Correction 
-50 - Correction finished
-60 - Almost done
-70 - Finished
+10 - Registered
+20 - Waiting for masking
+25 - Masking in progress
+30 - Waiting for processing
+35 - Processing in progress
+40 - Waiting for correction
+45 - Correction in progress
+50 - Waiting for packing
+55 - Packing in progress
+60 - Finished
 */
