@@ -61,6 +61,23 @@ namespace OrderFlowStudio.Models.SeedDb
                 System.Console.WriteLine("Statuses data exist - no need to seed.");
             }
 
+            if (!context.OrderReports.Any())
+            {
+                System.Console.WriteLine("Adding order reports to OrderFLowStudio db.");
+                context.OrderReports.AddRange(
+                    new OrderReport() { QuantityFinished = 60, StatusId = 1 },
+                    new OrderReport() { QuantityFinished = 20, StatusId = 2 },
+                    new OrderReport() { QuantityFinished = 30, StatusId = 3 },
+                    new OrderReport() { QuantityFinished = 40, StatusId = 4 },
+                    new OrderReport() { QuantityFinished = 50, StatusId = 5 }
+                    );
+                context.SaveChanges();
+            }
+            else
+            {
+                System.Console.WriteLine("OrderReports data exist - no need to seed.");
+            }
+
             if (!context.Orders.Any())
             {
                 System.Console.WriteLine("Adding orders to OrderFLowStudio db.");
@@ -78,23 +95,6 @@ namespace OrderFlowStudio.Models.SeedDb
                 System.Console.WriteLine("Orders data exist - no need to seed.");
             }
             
-
-            if (!context.OrderReports.Any())
-            {
-                System.Console.WriteLine("Adding order reports to OrderFLowStudio db.");
-                context.OrderReports.AddRange(
-                    new OrderReport() { QuantityFinished = 60, StatusId = 1 },
-                    new OrderReport() { QuantityFinished = 20, StatusId = 2 },
-                    new OrderReport() { QuantityFinished = 30, StatusId = 3 },
-                    new OrderReport() { QuantityFinished = 40, StatusId = 4 },
-                    new OrderReport() { QuantityFinished = 50, StatusId = 5 }
-                    );
-                context.SaveChanges();
-            }
-            else
-            {
-                System.Console.WriteLine("OrderReports data exist - no need to seed.");
-            }
         }
     }
 }
