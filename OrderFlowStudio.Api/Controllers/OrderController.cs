@@ -109,10 +109,10 @@ namespace OrderFlowStudio.Api.Controllers
         }
 
         // READ
-        [HttpGet("api/order/notstarted")]
-        public ActionResult GetOrdersWithStatusNotStarted()
+        [HttpGet("api/order/registered")]
+        public ActionResult GetOrdersWithStatusRegistered()
         {
-            var orders = _orderService.GetOrdersFilteredNotStarted();
+            var orders = _orderService.GetOrdersFilteredRegistered();
             var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
             return Ok(orderDto);
         }

@@ -2,6 +2,7 @@
 using OrderFlowStudio.Api.Dtos;
 using OrderFlowStudio.Api.Serialization;
 using OrderFlowStudio.Services.OrderReport_Service;
+using OrderFlowStudio.Services.Status_Service;
 
 namespace OrderFlowStudio.Api.Controllers
 {
@@ -9,10 +10,12 @@ namespace OrderFlowStudio.Api.Controllers
     public class OrderRaportController : ControllerBase
     {
         private readonly IOrderReportService _orderRaportService;
+        private readonly IStatusService _statusService;
 
-        public OrderRaportController(IOrderReportService orderRaportService)
+        public OrderRaportController(IOrderReportService orderRaportService, IStatusService statusService)
         {
             _orderRaportService = orderRaportService;
+            _statusService = statusService;
         }
 
         // READ
@@ -41,6 +44,94 @@ namespace OrderFlowStudio.Api.Controllers
             var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(raport);
             return Ok(serviceResponse);
 
+        }
+
+        [HttpPatch("api/order/changestatusto/maskingwaiting")]
+        public ActionResult UpdateReportStatusesToMaskinginwaiting([FromBody] OrderReportReadDto raportReadDto)
+        {
+            var report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(raportReadDto);
+            int _statusNumber = 20;
+            var statuseId = _statusService.GetStatusIdByStatusNumber(_statusNumber);
+            report.StatusId = statuseId;
+            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(report);
+            return Ok(serviceResponse);
+        }
+
+        [HttpPatch("api/order/changestatusto/maskinginprogress")]
+        public ActionResult UpdateReportStatusesToMaskinginProgress([FromBody] OrderReportReadDto raportReadDto)
+        {
+            var report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(raportReadDto);
+            int _statusNumber = 25;
+            var statuseId = _statusService.GetStatusIdByStatusNumber(_statusNumber);
+            report.StatusId = statuseId;
+            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(report);
+            return Ok(serviceResponse);
+        }
+
+        [HttpPatch("api/order/changestatusto/processingwaiting")]
+        public ActionResult UpdateReportStatusesToProcessingWaiting([FromBody] OrderReportReadDto raportReadDto)
+        {
+            var report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(raportReadDto);
+            int _statusNumber = 30;
+            var statuseId = _statusService.GetStatusIdByStatusNumber(_statusNumber);
+            report.StatusId = statuseId;
+            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(report);
+            return Ok(serviceResponse);
+        }
+
+        [HttpPatch("api/order/changestatusto/processinginprogress")]
+        public ActionResult UpdateReportStatusesToProcessingInProgress([FromBody] OrderReportReadDto raportReadDto)
+        {
+            var report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(raportReadDto);
+            int _statusNumber = 35;
+            var statuseId = _statusService.GetStatusIdByStatusNumber(_statusNumber);
+            report.StatusId = statuseId;
+            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(report);
+            return Ok(serviceResponse);
+        }
+
+        [HttpPatch("api/order/changestatusto/correctionwaiting")]
+        public ActionResult UpdateReportStatusesToCorrectionWaiting([FromBody] OrderReportReadDto raportReadDto)
+        {
+            var report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(raportReadDto);
+            int _statusNumber = 40;
+            var statuseId = _statusService.GetStatusIdByStatusNumber(_statusNumber);
+            report.StatusId = statuseId;
+            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(report);
+            return Ok(serviceResponse);
+        }
+
+        [HttpPatch("api/order/changestatusto/correctioninprogress")]
+        public ActionResult UpdateReportStatusesToCorrectionInProgress([FromBody] OrderReportReadDto raportReadDto)
+        {
+            var report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(raportReadDto);
+            int _statusNumber = 45;
+            var statuseId = _statusService.GetStatusIdByStatusNumber(_statusNumber);
+            report.StatusId = statuseId;
+            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(report);
+            return Ok(serviceResponse);
+        }
+
+        [HttpPatch("api/order/changestatusto/packingwaiting")]
+        public ActionResult UpdateReportStatusesToPackingWaiting([FromBody] OrderReportReadDto raportReadDto)
+        {
+            var report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(raportReadDto);
+            int _statusNumber = 50;
+            var statuseId = _statusService.GetStatusIdByStatusNumber(_statusNumber);
+            report.StatusId = statuseId;
+            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(report);
+            return Ok(serviceResponse);
+        }
+
+        [HttpPatch("api/order/changestatusto/packinginprogress")]
+        public ActionResult UpdateReportStatusesToPackingInProgress([FromBody] OrderReportReadDto raportReadDto)
+        {
+            var report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(raportReadDto);
+            int _statusNumber = 55;
+            var statuseId = _statusService.GetStatusIdByStatusNumber(_statusNumber);
+            report.StatusId = statuseId;
+            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(report);
+            return Ok(serviceResponse);
         }
 
         // DELETE

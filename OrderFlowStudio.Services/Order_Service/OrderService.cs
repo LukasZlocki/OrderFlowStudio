@@ -107,7 +107,7 @@ namespace OrderFlowStudio.Services.Order_Service
         /// Returns orders list with order not started in system
         /// </summary>
         /// <returns>List<Order></returns>
-        public List<Order> GetOrdersFilteredNotStarted()
+        public List<Order> GetOrdersFilteredRegistered()
         {
             var service = _db.Orders
                 .Include(or => or.Report)
