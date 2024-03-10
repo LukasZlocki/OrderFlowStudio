@@ -42,12 +42,6 @@ Process stages:
 * Stage : Finished 		            | Order is finished and ready for shipment.
 
 
-## Branches
-
-* main branch consist newest release.
-* Release{number} branch covers all releases.
-
-
 ## Technology stack:
 
 * C#, 
@@ -75,7 +69,19 @@ Process stages:
 
 
 # Endpoints - Swagger 
+
 ![](Endpoints.jpg)
+
+
+# Installation
+
+To build project you need:
+* Install docker desktop
+* Clone repository
+* In terminal worite: docker compose up
+
+Data base will be seeded with basis data and you can play with app.
+
 
 ## Creator
 
