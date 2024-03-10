@@ -68,12 +68,12 @@ Process stages:
 * Dedicated web page for each production stand on production line.
 
 
-# Endpoints - Swagger 
+## Endpoints - Swagger 
 
 ![](Endpoints.jpg)
 
 
-# Installation
+## Installation
 
 To build project you need:
 * Install docker desktop
