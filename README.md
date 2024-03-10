@@ -78,7 +78,7 @@ Process stages:
 To build project you need:
 * Install docker desktop
 * Clone repository
-* In terminal worite: docker compose up
+* In terminal write: docker compose up
 
 Data base will be seeded with basis data and you can play with app.
 
