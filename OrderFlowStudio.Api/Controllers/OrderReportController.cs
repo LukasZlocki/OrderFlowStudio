@@ -60,11 +60,14 @@ namespace OrderFlowStudio.Api.Controllers
         [HttpPatch("api/order/changestatusto/maskinginprogress")]
         public ActionResult UpdateReportStatusesToMaskinginProgress([FromBody] OrderReportReadDto raportReadDto)
         {
-            var report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(raportReadDto);
-            int _statusNumber = 25;
-            var statuseId = _statusService.GetStatusIdByStatusNumber(_statusNumber);
-            report.StatusId = statuseId;
-            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(report);
+            var _report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(raportReadDto);
+            int _statusMaskingInProgress = 25; // masking in progress status.
+            // retriving status model by status number(code)
+            var _status = _statusService.GetStatusModelByStatusNumber(_statusMaskingInProgress);
+            _report.Status = _status;
+            _report.StatusId = _status.StatusId;
+            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(_report);
+
             return Ok(serviceResponse);
         }
 
