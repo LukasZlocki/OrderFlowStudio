@@ -85,7 +85,7 @@ namespace OrderFlowStudio.Services.OrderReport_Service
             try
             {
                 var orderReportToUpdate = _db.OrderReports.Find(orderReport.Id);
-                orderReportToUpdate = orderReport;
+                orderReportToUpdate.StatusId = orderReport.StatusId;
                 _db.OrderReports.Update(orderReportToUpdate);
                 _db.SaveChanges();
                 return new ServiceResponse<bool>
