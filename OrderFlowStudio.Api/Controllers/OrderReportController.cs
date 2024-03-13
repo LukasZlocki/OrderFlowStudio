@@ -78,9 +78,17 @@ namespace OrderFlowStudio.Api.Controllers
 
         // UPDATE
         [HttpPatch("api/order/changestatusto/processinginprogress")]
-        public ActionResult UpdateReportStatusesToProcessingInProgress([FromBody] OrderReportReadDto raportReadDto)
+        public ActionResult UpdateReportStatusesToProcessingInProgress([FromBody] OrderReportReadDto reportReadDto)
         {
-            return Ok();
+            var _report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(reportReadDto);
+            int _statusProcessingInProgress = 35; // processing in progress status.
+            // retriving status model by status number(code)
+            var _status = _statusService.GetStatusModelByStatusNumber(_statusProcessingInProgress);
+            _report.Status = _status;
+            _report.StatusId = _status.StatusId;
+            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(_report);
+
+            return Ok(serviceResponse);
         }
 
         [HttpPatch("api/order/changestatusto/correctionwaiting")]
