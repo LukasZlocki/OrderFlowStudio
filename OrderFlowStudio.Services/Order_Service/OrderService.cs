@@ -150,6 +150,23 @@ namespace OrderFlowStudio.Services.Order_Service
 
         // READ
         /// <summary>
+        /// Returns list of orders with status waiting for processing
+        /// </summary>
+        /// <returns>list<Order></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public List<Order> GetOrdersFilteredProcessingWaiting()
+        {
+            var service = _db.Orders
+                .Include(or => or.Report)
+                    .ThenInclude(r => r.Status)
+                        .Include(p => p.Product)
+                            .Where(r => r.Report.Status.StatusCode == 30)
+                                .ToList();
+            return service;
+        }
+
+        // READ
+        /// <summary>
         /// Returns orders list with status processing in progress
         /// </summary>
         /// <returns>List<Order></returns>
@@ -239,7 +256,5 @@ namespace OrderFlowStudio.Services.Order_Service
                 };
             }
         }
-
-
     }
 }
