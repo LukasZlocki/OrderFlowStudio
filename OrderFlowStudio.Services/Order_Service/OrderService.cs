@@ -176,7 +176,7 @@ namespace OrderFlowStudio.Services.Order_Service
                 .Include(or => or.Report)
                     .ThenInclude(r => r.Status)
                         .Include(p => p.Product)
-                            .Where(r => r.Report.Status.StatusCode == 30)
+                            .Where(r => r.Report.Status.StatusCode == 35)
                                 .ToList();
             return service;
         }
