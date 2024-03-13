@@ -127,6 +127,15 @@ namespace OrderFlowStudio.Api.Controllers
         }
 
         // READ
+        [HttpGet("api/order/processingwaiting")]
+        public ActionResult GetOrdersWithStatusProcessingWaiting()
+        {
+            var orders = _orderService.GetOrdersFilteredProcessingWaiting();
+            var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
+            return Ok(orderDto);
+        }
+
+        // READ
         [HttpGet("api/order/processinginprogress")]
         public ActionResult GetOrdersWithStatusProcessingInProgress()
         {

@@ -109,11 +109,12 @@ namespace OrderFlowStudio.Services.Order_Service
         /// <returns>List<Order></returns>
         public List<Order> GetOrdersFilteredRegistered()
         {
+            int _orderRegisteredStatus = 10;
             var service = _db.Orders
                 .Include(or => or.Report)
                     .ThenInclude(r => r.Status) 
                         .Include(p => p.Product)
-                            .Where(r => r.Report.Status.StatusCode == 10)
+                            .Where(r => r.Report.Status.StatusCode == _orderRegisteredStatus)
                                 .ToList();
             return service;
         }
@@ -139,11 +140,30 @@ namespace OrderFlowStudio.Services.Order_Service
         /// <returns>List<Order></returns>
         public List<Order> GetOrdersFilteredMaskingInProgress()
         {
+            int _maskingInProgressStatus = 25;
             var service = _db.Orders
                 .Include(or => or.Report)
                     .ThenInclude(r => r.Status)
                         .Include(p => p.Product)
-                            .Where(r => r.Report.Status.StatusCode == 25)
+                            .Where(r => r.Report.Status.StatusCode == _maskingInProgressStatus)
+                                .ToList();
+            return service;
+        }
+
+        // READ
+        /// <summary>
+        /// Returns list of orders with status waiting for processing
+        /// </summary>
+        /// <returns>list<Order></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public List<Order> GetOrdersFilteredProcessingWaiting()
+        {
+            int _processingWaitingStatus = 30;
+            var service = _db.Orders
+                .Include(or => or.Report)
+                    .ThenInclude(r => r.Status)
+                        .Include(p => p.Product)
+                            .Where(r => r.Report.Status.StatusCode == _processingWaitingStatus)
                                 .ToList();
             return service;
         }
@@ -155,11 +175,12 @@ namespace OrderFlowStudio.Services.Order_Service
         /// <returns>List<Order></returns>
         public List<Order> GetOrdersFilteredProcessingInProgress()
         {
+            int _processingInProgressStatus = 35;
             var service = _db.Orders
                 .Include(or => or.Report)
                     .ThenInclude(r => r.Status)
                         .Include(p => p.Product)
-                            .Where(r => r.Report.Status.StatusCode == 30)
+                            .Where(r => r.Report.Status.StatusCode == _processingInProgressStatus)
                                 .ToList();
             return service;
         }
@@ -239,7 +260,5 @@ namespace OrderFlowStudio.Services.Order_Service
                 };
             }
         }
-
-
     }
 }
