@@ -46,17 +46,6 @@ namespace OrderFlowStudio.Api.Controllers
 
         }
 
-        [HttpPatch("api/order/changestatusto/maskingwaiting")]
-        public ActionResult UpdateReportStatusesToMaskinginwaiting([FromBody] OrderReportReadDto raportReadDto)
-        {
-            var report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(raportReadDto);
-            int _statusNumber = 20;
-            var statuseId = _statusService.GetStatusIdByStatusNumber(_statusNumber);
-            report.StatusId = statuseId;
-            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(report);
-            return Ok(serviceResponse);
-        }
-
         [HttpPatch("api/order/changestatusto/maskinginprogress")]
         public ActionResult UpdateReportStatusesToMaskinginProgress([FromBody] OrderReportReadDto raportReadDto)
         {
