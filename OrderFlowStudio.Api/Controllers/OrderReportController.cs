@@ -118,9 +118,17 @@ namespace OrderFlowStudio.Api.Controllers
         }
 
         [HttpPatch("api/order/changestatusto/packinginprogress")]
-        public ActionResult UpdateReportStatusesToPackingInProgress([FromBody] OrderReportReadDto raportReadDto)
+        public ActionResult UpdateReportStatusesToPackingInProgress([FromBody] OrderReportReadDto reportReadDto)
         {
-            return Ok();
+            var _report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(reportReadDto);
+            int _statusPackingWaiting = 55; // packing in progress status
+            // retriving status model by status number(code)
+            var _status = _statusService.GetStatusModelByStatusNumber(_statusPackingWaiting);
+            _report.Status = _status;
+            _report.StatusId = _status.StatusId;
+            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(_report);
+
+            return Ok(serviceResponse);
         }
 
         // DELETE
