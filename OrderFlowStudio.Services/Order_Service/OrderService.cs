@@ -226,11 +226,12 @@ namespace OrderFlowStudio.Services.Order_Service
         /// <returns>List<Order></returns>
         public List<Order> GetOrdersFilteredPackingInProgress()
         {
+            int _packingInProgressStatus = 55;
             var service = _db.Orders
                 .Include(or => or.Report)
                     .ThenInclude(r => r.Status)
                         .Include(p => p.Product)
-                            .Where(r => r.Report.Status.StatusCode == 50)
+                            .Where(r => r.Report.Status.StatusCode == _packingInProgressStatus)
                                 .ToList();
             return service;
         }
