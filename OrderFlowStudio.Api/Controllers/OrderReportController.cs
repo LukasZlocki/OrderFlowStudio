@@ -104,9 +104,17 @@ namespace OrderFlowStudio.Api.Controllers
         }
 
         [HttpPatch("api/order/changestatusto/packingwaiting")]
-        public ActionResult UpdateReportStatusesToPackingWaiting([FromBody] OrderReportReadDto raportReadDto)
+        public ActionResult UpdateReportStatusesToPackingWaiting([FromBody] OrderReportReadDto reportReadDto)
         {
-            return Ok();
+            var _report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(reportReadDto);
+            int _statusPackingWaiting = 50; // waiting for packing status
+            // retriving status model by status number(code)
+            var _status = _statusService.GetStatusModelByStatusNumber(_statusPackingWaiting);
+            _report.Status = _status;
+            _report.StatusId = _status.StatusId;
+            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(_report);
+
+            return Ok(serviceResponse);
         }
 
         [HttpPatch("api/order/changestatusto/packinginprogress")]
