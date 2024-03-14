@@ -201,6 +201,23 @@ namespace OrderFlowStudio.Services.Order_Service
             return service;
         }
 
+        //READ
+        /// <summary>
+        /// Returns order with status waiting for packing
+        /// </summary>
+        /// <returns>List<Order></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public List<Order> GetOrdersFilteredPackingWaiting()
+        {
+            int _packingWaitingStatus = 50;
+            var service = _db.Orders
+                .Include(or => or.Report)
+                    .ThenInclude(r => r.Status)
+                        .Include(p => p.Product)
+                            .Where(r => r.Report.Status.StatusCode == _packingWaitingStatus)
+                                .ToList();
+            return service;
+        }
 
         // READ
         /// <summary>
@@ -260,5 +277,7 @@ namespace OrderFlowStudio.Services.Order_Service
                 };
             }
         }
+
+
     }
 }
