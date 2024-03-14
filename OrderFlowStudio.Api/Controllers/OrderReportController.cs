@@ -12,9 +12,9 @@ namespace OrderFlowStudio.Api.Controllers
         private readonly IOrderReportService _orderRaportService;
         private readonly IStatusService _statusService;
 
-        public OrderRaportController(IOrderReportService orderRaportService, IStatusService statusService)
+        public OrderRaportController(IOrderReportService orderReportService, IStatusService statusService)
         {
-            _orderRaportService = orderRaportService;
+            _orderRaportService = orderReportService;
             _statusService = statusService;
         }
 
@@ -22,35 +22,35 @@ namespace OrderFlowStudio.Api.Controllers
         [HttpGet("api/raport/{id}")]
         public ActionResult GetRaport(int id)
         {
-            var raport = _orderRaportService.GetOrderReportById(id);
-            var raportReadDto = OrderReportMapper.SerializeOrderReportToOrderReportReadDto(raport);
-            return Ok(raportReadDto);
+            var report = _orderRaportService.GetOrderReportById(id);
+            var reportReadDto = OrderReportMapper.SerializeOrderReportToOrderReportReadDto(report);
+            return Ok(reportReadDto);
         }
 
         // READ
         [HttpGet("api/raport")]
         public ActionResult GetRaports()
         {
-            var raports = _orderRaportService.GetAllOrderReports();
-            var raportsReadDto = OrderReportMapper.SerializeListOfOrderReportsToOrderReportReadDtoList(raports);
-            return Ok(raportsReadDto);
+            var reports = _orderRaportService.GetAllOrderReports();
+            var reportsReadDto = OrderReportMapper.SerializeListOfOrderReportsToOrderReportReadDtoList(reports);
+            return Ok(reportsReadDto);
         }
 
         // UPDATE
         [HttpPatch("api/raport")]
-        public ActionResult UpdateRaportStatuses([FromBody] OrderReportReadDto raportReadDto)
+        public ActionResult UpdateRaportStatuses([FromBody] OrderReportReadDto reportReadDto)
         {
-            var raport = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(raportReadDto);
-            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(raport);
+            var report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(reportReadDto);
+            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(report);
             return Ok(serviceResponse);
 
         }
 
         // UPDATE
         [HttpPatch("api/order/changestatusto/maskinginprogress")]
-        public ActionResult UpdateReportStatusesToMaskinginProgress([FromBody] OrderReportReadDto raportReadDto)
+        public ActionResult UpdateReportStatusesToMaskinginProgress([FromBody] OrderReportReadDto reportReadDto)
         {
-            var _report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(raportReadDto);
+            var _report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(reportReadDto);
             int _statusMaskingInProgress = 25; // masking in progress status.
             // retriving status model by status number(code)
             var _status = _statusService.GetStatusModelByStatusNumber(_statusMaskingInProgress);
@@ -92,13 +92,13 @@ namespace OrderFlowStudio.Api.Controllers
         }
 
         [HttpPatch("api/order/changestatusto/correctionwaiting")]
-        public ActionResult UpdateReportStatusesToCorrectionWaiting([FromBody] OrderReportReadDto raportReadDto)
+        public ActionResult UpdateReportStatusesToCorrectionWaiting([FromBody] OrderReportReadDto reportReadDto)
         {
             return Ok();
         }
 
         [HttpPatch("api/order/changestatusto/correctioninprogress")]
-        public ActionResult UpdateReportStatusesToCorrectionInProgress([FromBody] OrderReportReadDto raportReadDto)
+        public ActionResult UpdateReportStatusesToCorrectionInProgress([FromBody] OrderReportReadDto reportReadDto)
         {
             return Ok();
         }
