@@ -154,6 +154,15 @@ namespace OrderFlowStudio.Api.Controllers
         }
 
         // READ
+        [HttpGet("api/order/packingwaiting")]
+        public ActionResult GetOrdersWithStatusPackingWaiting()
+        {
+            var orders = _orderService.GetOrdersFilteredPackingWaiting();
+            var orderDto = OrderMapper.SerializeOrderToListOfOrderReadDto(orders);
+            return Ok(orderDto);
+        }
+
+        // READ
         [HttpGet("api/order/packinginprogress")]
         public ActionResult GetOrdersWithStatusPackingInProgress()
         {
