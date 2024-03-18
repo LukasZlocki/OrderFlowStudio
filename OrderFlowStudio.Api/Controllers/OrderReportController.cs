@@ -131,6 +131,20 @@ namespace OrderFlowStudio.Api.Controllers
             return Ok(serviceResponse);
         }
 
+        [HttpPatch("api/order/changestatusto/orderfinished")]
+        public ActionResult UpdateReportStatusesToPackingFinished([FromBody] OrderReportReadDto reportReadDto)
+        {
+            var _report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(reportReadDto);
+            int _statusPackingFinished = 60; // packing in progress status
+            // retriving status model by status number(code)
+            var _status = _statusService.GetStatusModelByStatusNumber(_statusPackingFinished);
+            _report.Status = _status;
+            _report.StatusId = _status.StatusId;
+            var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(_report);
+
+            return Ok(serviceResponse);
+        }
+
         // DELETE
         // No need to code the functionality !
 
