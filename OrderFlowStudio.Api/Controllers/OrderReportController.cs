@@ -95,9 +95,9 @@ namespace OrderFlowStudio.Api.Controllers
         public ActionResult UpdateReportStatusesToCorrectionWaiting([FromBody] OrderReportReadDto reportReadDto)
         {
             var _report = OrderReportMapper.SerializeStatusesOnlyOfOrderReportReadDtoToOrderReport(reportReadDto);
-            int _statusProcessingInProgress = 40; // correction a=waiting status.
+            int _statusCorrectionWaiting = 40; // correction a=waiting status.
             // retriving status model by status number(code)
-            var _status = _statusService.GetStatusModelByStatusNumber(_statusProcessingInProgress);
+            var _status = _statusService.GetStatusModelByStatusNumber(_statusCorrectionWaiting);
             _report.Status = _status;
             _report.StatusId = _status.StatusId;
             var serviceResponse = _orderRaportService.UpdateOrderReportStatuses(_report);
