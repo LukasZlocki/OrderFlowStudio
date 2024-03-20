@@ -211,11 +211,12 @@ namespace OrderFlowStudio.Services.Order_Service
         /// <returns>List<Order></returns>
         public List<Order> GetOrdersFilteredCorrectionInProgress()
         {
+            int _correctionInProgressStatus = 45;
             var service = _db.Orders
                 .Include(or => or.Report)
                     .ThenInclude(r => r.Status)
                         .Include(p => p.Product)
-                            .Where(r => r.Report.Status.StatusCode == 40)
+                            .Where(r => r.Report.Status.StatusCode == _correctionInProgressStatus)
                                 .ToList();
             return service;
         }
