@@ -187,16 +187,36 @@ namespace OrderFlowStudio.Services.Order_Service
 
         // READ
         /// <summary>
+        /// Returns orders with status waiting for correction
+        /// </summary>
+        /// <returns>List<Order></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public List<Order> GetOrdersFilteredCorrectionWaiting()
+        {
+            int _correctionWaitingStatus = 40;
+            var service = _db.Orders
+                .Include(or => or.Report)
+                    .ThenInclude(r => r.Status)
+                        .Include(p => p.Product)
+                            .Where(r => r.Report.Status.StatusCode == _correctionWaitingStatus)
+                                .ToList();
+            return service;
+        }
+
+
+        // READ
+        /// <summary>
         /// Returns orders list with status correction in progress
         /// </summary>
         /// <returns>List<Order></returns>
         public List<Order> GetOrdersFilteredCorrectionInProgress()
         {
+            int _correctionInProgressStatus = 45;
             var service = _db.Orders
                 .Include(or => or.Report)
                     .ThenInclude(r => r.Status)
                         .Include(p => p.Product)
-                            .Where(r => r.Report.Status.StatusCode == 40)
+                            .Where(r => r.Report.Status.StatusCode == _correctionInProgressStatus)
                                 .ToList();
             return service;
         }
@@ -278,7 +298,5 @@ namespace OrderFlowStudio.Services.Order_Service
                 };
             }
         }
-
-
     }
 }

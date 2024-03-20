@@ -17,6 +17,7 @@ namespace OrderFlowStudio.Services.Order_Service
         public List<Order> GetOrdersFilteredMaskingInProgress();
         public List<Order> GetOrdersFilteredProcessingWaiting();
         public List<Order> GetOrdersFilteredProcessingInProgress();
+        public List<Order> GetOrdersFilteredCorrectionWaiting();
         public List<Order> GetOrdersFilteredCorrectionInProgress();
         public List<Order> GetOrdersFilteredPackingWaiting();
         public List<Order> GetOrdersFilteredPackingInProgress();
