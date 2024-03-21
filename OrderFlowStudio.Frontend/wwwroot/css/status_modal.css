@@ -1,0 +1,64 @@
+.status-modal {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.status-modal-content {
+    width: 650px;
+    margin: auto;
+    margin-top: 150px;
+    background-color: white;
+    border-radius: 20px;
+    -webkit-box-shadow: 10px 10px 32px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 10px 10px 32px 0px rgba(0,0,0,0.75);
+    box-shadow: 10px 10px 32px 0px rgba(0,0,0,0.75);
+}
+
+.show {
+    display: block;
+    animation-name: show-animation;
+    animation-duration: 1s;
+}
+
+@keyframes show-animation {
+    from { opacity: 0 }
+    to { opacity: 1 }
+}
+
+.hide {
+    display: none;
+}
+
+.status-modal-header {
+    background-color: purple;
+    padding: 15px;
+}
+
+.status-modal-title {
+    margin: 5px;
+}
+
+.status-modal-close-button {
+    float: right;
+    margin: 5px;
+    cursor: pointer;
+}
+
+.status-modal-close-button:hover {
+    color: red;
+}
+
+.status-modal-body {
+    padding: 10px;
+}
+
+.status-modal-footer {
+    background-color: purple;
+    padding: 10px;
+}
+
+

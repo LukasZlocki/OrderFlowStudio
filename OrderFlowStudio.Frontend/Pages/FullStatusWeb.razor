@@ -1,0 +1,35 @@
+@page "/fullstatus/{id:int}"
+@using OrderFlowStudio.Frontend.Data
+@inject HttpClient http
+
+
+
+<h1>Detailed order information</h1> 
+
+<h0> Order information</h0> <br>
+<h0> Order number   : @order.OrderNumber</h0> <br>
+<h0> Order quantity : @order.Quantity</h0> <br>
+
+@if(order.productDto != null)
+{
+<h0> Part number    : @order.productDto.PartNumber</h0> <br>
+<h0> Part number    : @order.productDto.ProductDescription</h0> <br>
+}
+@if(order.reportDto != null)
+{
+<h0> Order status   : @order.reportDto.statusDto.StatusDescription</h0> <br>
+<h0> Pcs processed  : @order.reportDto.QuantityFinished</h0> <br>
+}
+
+@code {
+    [Parameter]
+    public int Id { get; set; } // order primary key
+    
+    Order order = new Order();  
+
+    protected override async Task OnInitializedAsync()
+    {
+        order = await http.GetJsonAsync<Order>("http://localhost:6001/api/order/" + Id);
+    }
+
+}

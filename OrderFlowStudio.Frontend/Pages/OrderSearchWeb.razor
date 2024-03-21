@@ -1,0 +1,30 @@
+﻿@page "/ordersearch"
+@inject HttpClient http
+@inject IModalService modal
+
+@using Blazored.Modal.Services;
+@using Microsoft.AspNetCore.Components;
+@using OrderFlowStudio.Frontend.Data
+@using System.Net.Http;
+
+@inject NavigationManager Navigate;
+
+
+<h1>Search the order by order number</h1> 
+
+<!-- Search form -->
+<div class="form-inline">
+    <input class="form-control" type="text" placeholder="Order nb" aria-label="Search" @bind="orderNb" >
+    <button class = "btn btn-dark" @onclick="GetOrderIdByOrderNb">Search</button>
+</div>
+
+@code {
+    int orderRaportId;
+    private string orderNb = string.Empty;
+
+    private async Task GetOrderIdByOrderNb()
+    {
+        orderRaportId = await http.GetJsonAsync<int>("http://localhost:6001/api/order/getorderid/" + orderNb);
+        Navigate.NavigateTo("/fullstatus/" + orderRaportId, true);
+    }
+}

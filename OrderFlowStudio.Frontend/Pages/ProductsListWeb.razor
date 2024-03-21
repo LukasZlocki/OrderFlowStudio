@@ -1,0 +1,39 @@
+@page "/productslist"
+@inject HttpClient http
+
+@using OrderFlowStudio.Frontend.Data
+
+<h1>Products list - available for processing</h1>
+
+<div class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
+<table class="table table-striped border">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Part nb</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in @products)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.PartNumber</td>
+                <td>@product.ProductDescription</td>
+            </tr>
+        }
+    </tbody>
+</table>
+</div>
+
+@code {
+    List<Product> products = new List<Product>();
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        products = await http.GetJsonAsync<List<Product>>("http://localhost:6001/api/product");
+    }
+
+}

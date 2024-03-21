@@ -1,0 +1,116 @@
+@page "/orderraport/{id:int}"
+@using OrderFlowStudio.Frontend.Data
+@inject HttpClient http
+
+
+<button class="btn btn-dark" @onclick="GetRaportByButton" >By Button</button>
+
+<!--
+
+<table class table>
+    <tbody>
+        <tr>
+            <td>@Id</td>
+            <td>@raport.QuantityFinished</td>
+            <td>@raport.isStarted</td>
+            <td>@raport.isMasked</td>
+            <td>@raport.isProcessed</td>
+            <td>@raport.isProcessOK</td>
+            <td>@raport.isCorrectionStarted</td>
+            <td>@raport.isCorrectionFinished</td>
+            <td>@raport.isOrderFinished</td>
+
+            @if(raport.isStarted == false)
+            {
+                    <td><span class="badge badge-dark">Not started</span></td>
+            }
+            @if(raport.isStarted == true)
+            {
+                    <td><span class="badge badge-success">Finished</span></td>
+            }
+
+            @if(raport.isMasked == false)
+            {
+                <td><span class="badge badge-dark">Not started</span></td>
+            }
+            @if(raport.isMasked == true)
+            {
+                <td><span class="badge badge-success">Finished</span></td>
+            }
+
+             @if(raport.isProcessed == false)
+            {
+                <td><span class="badge badge-dark">Not started</span></td>
+            }
+            @if(raport.isProcessed == true)
+            {
+                <td><span class="badge badge-success">Finished</span></td>
+            }
+  
+             @if(raport.isProcessOK == false)
+            {
+                <td><span class="badge badge-dark">Not started</span></td>
+            }
+            @if(raport.isProcessOK == true)
+            {
+                <td><span class="badge badge-success">Finished</span></td>
+            }
+  
+             @if(raport.isCorrectionStarted == false)
+            {
+                <td><span class="badge badge-dark">Not started</span></td>
+            }
+            @if(raport.isCorrectionStarted == true)
+            {
+                <td><span class="badge badge-success">Finished</span></td>
+            }
+
+             @if(raport.isCorrectionFinished == false)
+            {
+                <td><span class="badge badge-dark">Not started</span></td>
+            }
+            @if(raport.isCorrectionFinished == true)
+            {
+                <td><span class="badge badge-success">Finished</span></td>
+            }
+
+             @if(raport.isOrderFinished == false)
+            {
+                <td><span class="badge badge-dark">Not started</span></td>
+            }
+            @if(raport.isOrderFinished == true)
+            {
+                <td><span class="badge badge-success">Finished</span></td>
+            }             
+               
+        </tr>
+    </tbody>
+
+</table>
+
+-->
+
+@code {
+    [Parameter]
+    public int Id {get; set;}
+
+    [Parameter]
+    public int RaportId {get; set;}
+
+    Report raport = new Report();
+
+    private async Task GetRaportByButton()
+    {
+        raport = await http.GetJsonAsync<Report>("http://localhost:6001/api/raport/" + RaportId);
+    }
+
+    /*
+    protected override void OnInitialized()
+    {
+        GetRaportByButton();
+    }
+    */
+
+
+
+}
