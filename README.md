@@ -1,7 +1,8 @@
-# OrderFlowStudio - Backend
+# OrderFlowStudio App
 
 Application to handle with production orders and its statuses during process steps.
-For frontend app refer to link : https://github.com/LukasZlocki/OrderFlowStudioBlazor.Frontend
+For frontend app refer to folder OrderFlowStudio.Frontend.
+For backend api refer to folder OrderFlowStudio.Api
 
 
 ## General Information
@@ -35,7 +36,8 @@ Process stages:
 * Stage : Waiting for masking       | Order is waiting for masking process.
 * Stage : Masking in progress	    | Order is being masked.
 * Stage : Waiting for processing    | Waiting for order processing.
-* Stage : Waiting for correction    | Order is waiting for corresction after process.
+* Stage : Processing in progress    | Order is being processed.
+* Stage : Waiting for correction    | Order is waiting for correction after process.
 * Stage : Correction in progress 	| Order is in correction process.
 * Stage : Waiting for packing 		| Order is waiting for packing process
 * Stage : Packing in progress       | Order is in pracking process. 
@@ -75,13 +77,17 @@ Process stages:
 
 ## Installation
 
-To build project you need:
+To build backend api you need:
 * Install docker desktop
-* Clone repository
-* In terminal write: docker compose up
+* Clone repository OrderFlowStudio.Api
+* In terminal write: docker compose up to build database
+* run backend in VS
+btw,
+Database will be seeded with base data.
 
-Data base will be seeded with basis data and you can play with app.
-
+To build frontend app you need:
+* Clone repository OrderFLowStudio.Frontend
+* Run it in VS
 
 ## Creator
 
