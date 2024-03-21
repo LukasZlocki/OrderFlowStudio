@@ -1,0 +1,117 @@
+@page "/orderlistweb"
+@inject HttpClient http
+@inject IModalService modal
+
+@using OrderFlowStudio.Frontend.Data
+
+@inject NavigationManager Navigate;
+
+
+<h1>Orders list web</h1> 
+
+<!-- Search form -->
+<div class="form-inline">
+    <input class="form-control" type="text" placeholder="Order nb" aria-label="Search" @bind="orderNb" >
+    <button class = "btn btn-dark" @onclick="GetOrderIdByOrderNb">Search</button>
+</div>
+
+<br />
+
+<div  class="border-bottom border-white shadow rounded-lg" style="background-color: #ededed">
+<table class="table table-striped border table-hover">   
+        <tr>
+            <th>Order nb</th>
+            <th>Quantity</th>
+            <th>Part nb</th>
+            <th>Description</th>
+            <th>Status</th>
+            <th>Details</th>
+        </tr> 
+    <tbody>
+        @foreach (var order in @orders)
+            {
+                <tr>
+                    <td>@order.OrderNumber</td>
+                    <td>@order.Quantity</td>
+                    <td>@order.productDto.PartNumber</td>
+                    <td>@order.productDto.ProductDescription</td>
+
+                    @if (order.reportDto.statusDto.StatusCode == 10)
+                    {
+                        <td><span class="badge badge-dark">Registered</span></td>
+                    }
+                    @if (order.reportDto.statusDto.StatusCode == 20)
+                    {
+                        <td><span class="badge badge-primary">Waiting for masking</span></td>
+                    }
+                    @if (order.reportDto.statusDto.StatusCode == 25)
+                    {
+                        <td><span class="badge badge-warning">Masking in progres</span></td>
+                    }
+                    @if (order.reportDto.statusDto.StatusCode == 30)
+                    {
+                        <td><span class="badge badge-primary">Waiting for processing</span></td>
+                    }
+                    @if (order.reportDto.statusDto.StatusCode == 35)
+                    {
+                        <td><span class="badge badge-warning">Processing in progress</span></td>
+                    }
+                    @if (order.reportDto.statusDto.StatusCode == 40)
+                    {
+                        <td><span class="badge badge-danger">Waiting for correction</span></td>
+                    }
+                    @if (order.reportDto.statusDto.StatusCode == 45)
+                    {
+                        <td><span class="badge badge-danger">Correction in progres</span></td>
+                    }
+                    @if (order.reportDto.statusDto.StatusCode == 50)
+                    {
+                        <td><span class="badge badge-primary">Waiting for packing</span></td>
+                    }
+                    @if (order.reportDto.statusDto.StatusCode == 55)
+                    {
+                        <td><span class="badge badge-warning">Packing in progress</span></td>
+                    }
+                    @if (order.reportDto.statusDto.StatusCode == 60)
+                    {
+                        <td><span class="badge badge-success">Finished</span></td>
+                    }
+                    <td><button class="btn btn-info" @onclick="@(() => RedirectToWebWithRaport(order.Id))">Details</button></td>
+                </tr>
+            }
+    </tbody>
+</table>
+</div>
+
+
+
+@code{
+    List<Order> orders = new List<Order>();
+    private string orderNb = string.Empty;
+
+    int orderRaportId;
+
+
+    private async Task GetOrders()
+    {
+        orders = await http.GetJsonAsync<List<Order>>("http://localhost:6001/api/order");
+    }
+
+    void RedirectToWebWithRaport(int OrderId)
+    {
+        Navigate.NavigateTo("/fullstatus/" + OrderId, true);
+    }
+
+    protected override async Task OnInitializedAsync()
+    {
+        orders = await http.GetJsonAsync<List<Order>>("http://localhost:6001/api/order");
+    }
+
+    private async Task GetOrderIdByOrderNb()
+    {
+        orderRaportId = await http.GetJsonAsync<int>("http://localhost:6001/api/order/byordernumber/" + orderNb);
+        Navigate.NavigateTo("/fullstatus/" + orderRaportId, true);
+    }
+
+
+}

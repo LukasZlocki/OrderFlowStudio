@@ -1,0 +1,93 @@
+﻿@page "/gatecorrection"
+@using OrderFlowStudio.Frontend.Data;
+@using System.Net.Http.Json
+@inject HttpClient http;
+@inject NavigationManager Navigate;
+
+
+<h1>Select order to work on:</h1>
+<div class="border-bottom border-white shadow rounded-lg" style="backgoround-color: #ededed">
+    <table class="table table-striped boarder table-hover">
+        <tr>
+            <th>Order nb</th>
+            <th>Quantity</th>
+            <th>Part nb</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        <tbody>
+            @foreach (var order in OrdersForCorrectionList)
+            {
+                <tr>
+                    <td>@order.OrderNumber</td>
+                    <td>@order.Quantity</td>
+                    <td>@order.ProductDto.PartNumber</td>
+                    <td>@order.ProductDto.ProductDescription</td>
+                    <td><button class="btn btn-secondary" @onclick="@(() => UpdateOrderWithCorrectionInProgressStatus(order))">Start Correction</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<br>
+<br>
+<h1>Correction in progress:</h1>
+<div class="border-bottom border-white shadow rounded-lg" style="backgoround-color: #ededed">
+    <table class="table table-striped boarder table-hover">
+        <tr>
+            <th>Order nb</th>
+            <th>Quantity</th>
+            <th>Part nb</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        <tbody>
+            @foreach (var order in OrdersCorrectionInProgressList)
+            {
+                <tr>
+                    <td>@order.OrderNumber</td>
+                    <td>@order.Quantity</td>
+                    <td>@order.ProductDto.PartNumber</td>
+                    <td>@order.ProductDto.ProductDescription</td>
+                    <td><button class="btn btn-warning" @onclick="@(() => UpdateOrderWithPackingWaitingStatus(order))">Finish Correction</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@code {
+    List<OrderReadDto> OrdersForCorrectionList = new List<OrderReadDto>();
+    List<OrderReadDto> OrdersCorrectionInProgressList = new List<OrderReadDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // load orders waiting for correction
+        OrdersForCorrectionList = await http.GetJsonAsync<List<OrderReadDto>>("http://localhost:6001/api/order/correctionwaiting");
+        // load orders with status correction in progress
+        OrdersCorrectionInProgressList = await http.GetJsonAsync<List<OrderReadDto>>("http://localhost:6001/api/order/correctioninprogress");
+    }
+
+    // Update order status - correction in progress
+    private async Task UpdateOrderWithCorrectionInProgressStatus(OrderReadDto order)
+    {
+        var _report = order.ReportDto;
+        var serviceResponse = await http.PatchAsJsonAsync("http://localhost:6001/api/order/changestatusto/correctioninprogress", _report);
+        RefreshThisPage();
+    }
+
+    // Update order status - correction finished and waiting for packing
+    private async Task UpdateOrderWithPackingWaitingStatus(OrderReadDto order)
+    {
+        var _report = order.ReportDto;
+        var serviceResponse = await http.PatchAsJsonAsync("http://localhost:6001/api/order/changestatusto/packingwaiting", _report);
+        RefreshThisPage();
+    }
+
+    private void RefreshThisPage()
+    {
+        Navigate.NavigateTo("/gatecorrection", true);
+    }
+}

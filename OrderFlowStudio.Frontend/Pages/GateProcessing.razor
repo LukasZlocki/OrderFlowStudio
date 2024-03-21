@@ -1,0 +1,105 @@
+﻿@page "/gateprocessing"
+@using OrderFlowStudio.Frontend.Data;
+@using System.Net.Http.Json
+@inject HttpClient http;
+@inject NavigationManager Navigate;
+
+
+<h1>Select order to work on:</h1>
+<div class="border-bottom border-white shadow rounded-lg" style="backgoround-color: #ededed">
+    <table class="table table-striped boarder table-hover">
+        <tr>
+            <th>Order nb</th>
+            <th>Quantity</th>
+            <th>Part nb</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        <tbody>
+            @foreach (var order in @OrdersForProcessingList)
+            {
+                <tr>
+                    <td>@order.OrderNumber</td>
+                    <td>@order.Quantity</td>
+                    <td>@order.ProductDto.PartNumber</td>
+                    <td>@order.ProductDto.ProductDescription</td>
+                    <td><button class="btn btn-secondary" @onclick="@(() => UpdateOrderWithProcessingInProgressStatus(order))">Start Processing</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<br>
+<br>
+<h1>Processing in progress:</h1>
+<div class="border-bottom border-white shadow rounded-lg" style="backgoround-color: #ededed">
+    <table class="table table-striped boarder table-hover">
+        <tr>
+            <th>Order nb</th>
+            <th>Quantity</th>
+            <th>Part nb</th>
+            <th>Description</th>
+            <th>Action</th>
+        </tr>
+        <tbody>
+            @foreach (var order in @OrdersProcessingInProgressList)
+            {
+                <tr>
+                    <td>@order.OrderNumber</td>
+                    <td>@order.Quantity</td>
+                    <td>@order.ProductDto.PartNumber</td>
+                    <td>@order.ProductDto.ProductDescription</td>
+                    <td>
+                        <button class="btn btn-warning" @onclick="@(() => UpdateOrderWithWaitingForPackingStatus(order))">Processing finished</button>
+                       <button class="btn btn-danger" @onclick="@(() => UpdateOrderWithWaitingForCorrectionStatus(order))">Correction needed</button>
+                     </td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+
+@code {
+    List<OrderReadDto> OrdersForProcessingList = new List<OrderReadDto>();
+    List<OrderReadDto> OrdersProcessingInProgressList = new List<OrderReadDto>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        // load orders registered at area
+        OrdersForProcessingList = await http.GetJsonAsync<List<OrderReadDto>>("http://localhost:6001/api/order/processingwaiting");
+        // load orders with status processing in progress
+        OrdersProcessingInProgressList = await http.GetJsonAsync<List<OrderReadDto>>("http://localhost:6001/api/order/processinginprogress");
+    }
+
+    // Update order status - processing in progress
+    private async Task UpdateOrderWithProcessingInProgressStatus(OrderReadDto order)
+    {
+        var _report = order.ReportDto;
+        var serviceResponse = await http.PatchAsJsonAsync("http://localhost:6001/api/order/changestatusto/processinginprogress", _report);
+        RefreshThisPage();
+    }
+
+    // Update order status - processing finished - correction needed - waiting for correction.
+    private async Task UpdateOrderWithWaitingForCorrectionStatus(OrderReadDto order)
+    {
+        var _report = order.ReportDto;
+        var serviceResponse = await http.PatchAsJsonAsync("http://localhost:6001/api/order/changestatusto/correctionwaiting", _report);
+        RefreshThisPage();
+    }
+
+    // Update order status - processing finished = waiting for packing
+    private async Task UpdateOrderWithWaitingForPackingStatus(OrderReadDto order)
+    {
+        var _report = order.ReportDto;
+        var serviceResponse = await http.PatchAsJsonAsync("http://localhost:6001/api/order/changestatusto/packingwaiting", _report);
+        RefreshThisPage();
+    }
+
+    private void RefreshThisPage()
+    {
+        Navigate.NavigateTo("/gateprocessing", true);
+    }
+}
