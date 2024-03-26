@@ -5,6 +5,7 @@ using OrderFlowStudio.Services.Product_Service;
 using OrderFlowStudio.Services.Status_Service;
 using OrderFlowStudio.Services.OrderReport_Service;
 using OrderFlowStudio.Models.SeedDb;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,13 +22,16 @@ builder.Services.AddControllers()
 
 builder.Services.AddCors();
 
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<OrderDbContext>();
+
 // Database configuration
 builder.Services.AddDbContext<OrderDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-//builder.Services.AddDbContext<OrderDbContext>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IOrderReportService, OrderReportService>();
 builder.Services.AddTransient<IProductService, ProductService>();
@@ -41,6 +45,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.MapIdentityApi<IdentityUser>();
 
 app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
