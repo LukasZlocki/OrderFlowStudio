@@ -1,10 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using OrderFlowStudio.Models.Models;
 
 namespace OrderFlowStudio.Models
 {
-    public class OrderDbContext : DbContext
+    public class OrderDbContext : IdentityDbContext
     {
         private readonly IConfiguration _configuration;
 
