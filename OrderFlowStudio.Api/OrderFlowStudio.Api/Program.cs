@@ -22,10 +22,6 @@ builder.Services.AddControllers()
 
 builder.Services.AddCors();
 
-builder.Services.AddAuthorization();
-builder.Services.AddIdentityApiEndpoints<IdentityUser>()
-    .AddEntityFrameworkStores<OrderDbContext>();
-
 // Database configuration
 builder.Services.AddDbContext<OrderDbContext>(options =>
 {
@@ -37,6 +33,11 @@ builder.Services.AddTransient<IOrderReportService, OrderReportService>();
 builder.Services.AddTransient<IProductService, ProductService>();
 builder.Services.AddTransient<IStatusService, StatusService>();
 
+builder.Services.AddAuthorization();
+builder.Services.AddIdentityApiEndpoints<IdentityUser>()
+    .AddEntityFrameworkStores<OrderDbContext>();
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -46,12 +47,12 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapIdentityApi<IdentityUser>();
-
 app.UseCors(policy => policy.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
 
 // auto seeding database if no data included in db.
 SeedDb.SeedDatabase(app);
+
+app.MapIdentityApi<IdentityUser>();
 
 app.UseHttpsRedirection();
 
