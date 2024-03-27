@@ -5,7 +5,6 @@ OrderFlowStudio.Services/obj/
 OrderFlowStudio.Services/bin/
 .vs/
 OrderFlowStudio.Api/bin/
-OrderFlowStudio.Models/Migrations/
 OrderFlowStudio.Models/bin/
 obj/
 

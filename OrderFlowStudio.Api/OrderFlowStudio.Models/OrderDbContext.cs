@@ -15,9 +15,9 @@ namespace OrderFlowStudio.Models
             _configuration = configuration;
         }
 
+        public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderReport> OrderReports { get; set; }
-        public DbSet<Product> Products { get; set; }
         public DbSet<ProductionStatus> Statuses { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

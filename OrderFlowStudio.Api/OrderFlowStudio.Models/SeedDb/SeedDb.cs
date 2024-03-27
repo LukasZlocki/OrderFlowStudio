@@ -11,14 +11,21 @@ namespace OrderFlowStudio.Models.SeedDb
         {
             using(var serviceScope = app.ApplicationServices.CreateScope())
             {
-                SeedData(serviceScope.ServiceProvider.GetService<OrderDbContext>());
+                var context = serviceScope.ServiceProvider.GetService<OrderDbContext>();
+                ApplyMigrations(context); // Apply migrations
+                SeedData(context); // Seed data
             }
+        }
+
+        public static void ApplyMigrations(OrderDbContext context)
+        {
+            System.Console.WriteLine("Appling migration to OrderFLowStudio db.");
+            context.Database.Migrate(); // Apply migrations
         }
 
         public static void SeedData(OrderDbContext context)
         {
-            System.Console.WriteLine("Appling migration to OrderFLowStudio db.");
-            context.Database.Migrate();
+
 
             if (!context.Products.Any())
             {
