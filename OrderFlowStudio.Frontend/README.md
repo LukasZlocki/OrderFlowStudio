@@ -67,6 +67,9 @@ Page with all order statuses.
 Orders registering page.
 ![](frontend2.jpg)
 
+Orders waiting for process / orders in process
+![](frontend3.jpg)
+
 
 ## Creator
 
