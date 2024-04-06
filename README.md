@@ -61,6 +61,13 @@ Process stages:
 * MVC
 
 
+## Technologies - implementation ToDo:
+* ASP.Net Identity  : to create users account and divide them according to production stands and responsibilities.
+* Terraform         : to building infrastructure of app at cloud provider.
+* SignalR           : to send notification of orders status change between user accounts
+* docker-compose    : to build containers for whole project. 
+
+
 ## Features
 
 * Repor of statuses of orders at productiong line area.
@@ -70,8 +77,18 @@ Process stages:
 * Dedicated web page for each production stand on production line.
 
 
-## Endpoints - Swagger 
+## Screenshots
 
+Frontend - all arders statuses
+![](frontend1.jpg)
+
+Frontend - registering new order in area / orders registered but not started
+![](frontend2.jpg)
+
+Frontend - orders waiting for process / orders in process
+![](frontend3.jpg)
+
+Backend - Swagger endpoints 
 ![](Endpoints.jpg)
 
 
@@ -88,6 +105,7 @@ Database will be seeded with base data.
 To build frontend app you need:
 * Clone repository OrderFLowStudio.Frontend
 * Run it in VS
+
 
 ## Creator
 
