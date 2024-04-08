@@ -70,7 +70,8 @@ Process stages:
 
 ## Endpoints - Swagger 
 
-![](Endpoints.jpg)
+![](Backend_1A.jpg)
+![](Backend_1B.jpg)
 
 
 ## Installation
