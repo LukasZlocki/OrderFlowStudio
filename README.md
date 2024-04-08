@@ -89,8 +89,8 @@ Frontend - orders waiting for process / orders in process
 ![](frontend3.jpg)
 
 Backend - Swagger endpoints 
-![](Endpoints.jpg)
-
+![](Backend_1A.jpg)
+![](Backend_1A.jpg)
 
 ## Installation
 
